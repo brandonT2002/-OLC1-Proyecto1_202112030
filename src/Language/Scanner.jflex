@@ -1,5 +1,7 @@
 /* 1. Package e importaciones */
-Package Language;
+package Language;
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
 import Components.ErrorL;
 
 %%
@@ -47,25 +49,25 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 
 /* 3. Reglas Semanticas */
 // Reservadas
-"main"                  {return new Symbol(TOK.TK_main,      yyline, yychar, yytext());}
+"main"                  {return new Symbol(TOK.RW_main,      yyline, yychar, yytext());}
 "void"                  {return new Symbol(TOK.RW_void,      yyline, yychar, yytext());}
-"int"                   {return new Symbol(TOK.TK_int,       yyline, yychar, yytext());}
-"double"                {return new Symbol(TOK.TK_double,    yyline, yychar, yytext());}
-"char"                  {return new Symbol(TOK.TK_char,      yyline, yychar, yytext());}
-"bool"                  {return new Symbol(TOK.TK_bool,      yyline, yychar, yytext());}
-"string"                {return new Symbol(TOK.TK_string,    yyline, yychar, yytext());}
-"if"                    {return new Symbol(TOK.TK_if,        yyline, yychar, yytext());}
-"else"                  {return new Symbol(TOK.TK_else,      yyline, yychar, yytext());}
-"switch"                {return new Symbol(TOK.TK_switch,    yyline, yychar, yytext());}
-"case"                  {return new Symbol(TOK.TK_case,      yyline, yychar, yytext());}
-"default"               {return new Symbol(TOK.TK_default,   yyline, yychar, yytext());}
-"break"                 {return new Symbol(TOK.TK_break,     yyline, yychar, yytext());}
-"for"                   {return new Symbol(TOK.TK_for,       yyline, yychar, yytext());}
-"while"                 {return new Symbol(TOK.TK_while,     yyline, yychar, yytext());}
-"do"                    {return new Symbol(TOK.TK_do,        yyline, yychar, yytext());}
+"int"                   {return new Symbol(TOK.RW_int,       yyline, yychar, yytext());}
+"double"                {return new Symbol(TOK.RW_double,    yyline, yychar, yytext());}
+"char"                  {return new Symbol(TOK.RW_char,      yyline, yychar, yytext());}
+"bool"                  {return new Symbol(TOK.RW_bool,      yyline, yychar, yytext());}
+"string"                {return new Symbol(TOK.RW_string,    yyline, yychar, yytext());}
+"if"                    {return new Symbol(TOK.RW_if,        yyline, yychar, yytext());}
+"else"                  {return new Symbol(TOK.RW_else,      yyline, yychar, yytext());}
+"switch"                {return new Symbol(TOK.RW_switch,    yyline, yychar, yytext());}
+"case"                  {return new Symbol(TOK.RW_case,      yyline, yychar, yytext());}
+"default"               {return new Symbol(TOK.RW_default,   yyline, yychar, yytext());}
+"break"                 {return new Symbol(TOK.RW_break,     yyline, yychar, yytext());}
+"for"                   {return new Symbol(TOK.RW_for,       yyline, yychar, yytext());}
+"while"                 {return new Symbol(TOK.RW_while,     yyline, yychar, yytext());}
+"do"                    {return new Symbol(TOK.RW_do,        yyline, yychar, yytext());}
 "true"                  {return new Symbol(TOK.RW_true,      yyline, yychar, yytext());}
 "false"                 {return new Symbol(TOK.RW_false,     yyline, yychar, yytext());}
-"Console.Write"         {return new Symbol(TOK.TK_print,     yyline, yychar, yytext());}
+"Console.Write"         {return new Symbol(TOK.RW_print,     yyline, yychar, yytext());}
 // Valores
 {STRING}                {return new Symbol(TOK.TK_string,    yyline, yychar, yytext());}
 {CHAR}                  {return new Symbol(TOK.TK_char,      yyline, yychar, yytext());}
