@@ -1,6 +1,8 @@
 /* 1. Package e importaciones */
 package Language;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java_cup.runtime.*;
 import Components.Response;
 import Components.ErrorS;
 
@@ -10,7 +12,7 @@ parser code
 {:
     ArrayList<Response> errorsS = new ArrayList<>();
     public void syntax_error(Symbol sym) {
-        errorsS.add(new Response(new ErrorS(sym.lef,sym.right,sym.value,TOK.terminalNames[sym.sym])));
+        errorsS.add(new Response(new ErrorS(sym.left,sym.right,sym.value,TOK.terminalNames[sym.sym])));
     }
     public void unrecovered_syntax_error(Symbol sym) throws java.lang.Exception {
         errorsS.add(new Response("Error Sintáctico sin recuperar."));
@@ -24,7 +26,7 @@ parser code
 :}
 
 /* 3. Terminales */
-terminal String RW_mian, RW_void, RW_int, RW_double, RW_char, RW_bool, RW_string;
+terminal String RW_main, RW_void, RW_int, RW_double, RW_char, RW_bool, RW_string;
 terminal String RW_if, RW_else, RW_switch, RW_case, RW_default, RW_for, RW_while, RW_do;
 terminal String RW_break;
 terminal String RW_true, RW_false, RW_print;
