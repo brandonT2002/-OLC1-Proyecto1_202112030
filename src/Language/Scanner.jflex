@@ -77,7 +77,6 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 {ID}                    {return new Symbol(TOK.TK_id,        yyline, yychar, yytext());}
 // Incremento / Decremento
 "++"                    {return new Symbol(TOK.TK_inc,       yyline, yychar, yytext());}
-"--"                    {return new Symbol(TOK.TK_dec,       yyline, yychar, yytext());}
 // Operadores Aritméticos
 "+"                     {return new Symbol(TOK.TK_plus,      yyline, yychar, yytext());}
 "-"                     {return new Symbol(TOK.TK_minus,     yyline, yychar, yytext());}
