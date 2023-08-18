@@ -41,4 +41,4 @@ non terminal String INIT;
 
 start with INIT;
 
-INIT ::= RW_mian;
+INIT ::= RW_void;
