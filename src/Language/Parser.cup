@@ -33,7 +33,7 @@ terminal String TK_string, TK_char, TK_int, TK_double, TK_id, TK_inc;
 terminal String TK_plus, TK_minus, TK_mult, TK_div, TK_uminus;
 terminal String TK_equequ, TK_notequ, TK_lessequ, TK_moreequ, TK_equal, TK_less, TK_more;
 terminal String TK_and, TK_or, TK_not;
-terminal String TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_comma, TK_colon, TK_semicolon;
+terminal String TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_colon, TK_semicolon;
 
 /* 4. No Terminales */
 non terminal String INIT;
@@ -42,6 +42,7 @@ non terminal String EXP, ARITHMETICS, RELATIONALS, LOGICS;
 non terminal String DECLID;
 non terminal String IFSTRUCT, SWITCHSTRUCT;
 non terminal String ENVS, CASESDEFAULT, CASES, CASE, DEFAULT;
+non terminal String LOOPFOR, ARGSFOR;
 non terminal String PRINT;
 non terminal String INSTRUCTION;
 non terminal String REASIGN;
@@ -74,21 +75,26 @@ INSTRUCTION ::=
     REASIGN         TK_semicolon |
     IFSTRUCT                     |
     SWITCHSTRUCT                 |
+    LOOPFOR                      |
     PRINT                        |
     RW_break        TK_semicolon |
     error                        ;
 
+// Declaracion de variables
 DECLID ::=
-    TYPE TK_id TK_equal EXP;
+    TYPE TK_id TK_equal EXP |
+    TYPE TK_id ;
 
 REASIGN ::=
     TK_id TK_equal EXP ;
 
+// Estructura if
 IFSTRUCT ::=
     RW_if TK_lpar EXP TK_rpar ENV RW_else IFSTRUCT |
     RW_if TK_lpar EXP TK_rpar ENV RW_else ENV      |
     RW_if TK_lpar EXP TK_rpar ENV                  ;
 
+// Estructura switch-case
 SWITCHSTRUCT ::=
     RW_switch :s TK_lpar EXP :exp TK_rpar ENVS ;
 
@@ -115,15 +121,24 @@ DEFAULT ::=
     RW_default TK_colon ENV          |
     RW_default TK_colon              ;
 
+// Estructura for
+LOOPFOR ::=
+    RW_for TK_lpar ARGSFOR TK_rpar ENV ;
+
+ARGSFOR ::=
+    TYPE TK_id TK_equal EXP TK_semicolon EXP TK_semicolon TK_id TK_inc ;
+
+// Impresion
 PRINT ::=
     RW_print TK_lpar EXP TK_rpar TK_semicolon |
     RW_print TK_lpar TK_rpar TK_semicolon     ;
 
-
+// Entorno
 ENV ::=
     TK_lbrc INSTRUCTIONS TK_rbrc |
     TK_lbrc TK_rbrc              ;
 
+// Tipos
 TYPE ::=
     RW_string  |
     RW_int     |
@@ -131,6 +146,7 @@ TYPE ::=
     RW_char    |
     RW_double  ;
 
+// Expresiones
 EXP ::=
     ARITHMETICS           |
     RELATIONALS           |
