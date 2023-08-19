@@ -43,7 +43,7 @@ non terminal String DECLID;
 non terminal String IFSTRUCT, SWITCHSTRUCT;
 non terminal String ENVS, CASESDEFAULT, CASES, CASE, DEFAULT;
 non terminal String LOOPFOR, ARGSFOR;
-non terminal String LOOPWHILE;
+non terminal String LOOPWHILE, LOOPDOWHILE;
 non terminal String PRINT;
 non terminal String INSTRUCTION;
 non terminal String REASIGN;
@@ -78,6 +78,7 @@ INSTRUCTION ::=
     SWITCHSTRUCT                 |
     LOOPFOR                      |
     LOOPWHILE                    |
+    LOOPDOWHILE                  |
     PRINT                        |
     RW_break        TK_semicolon |
     error                        ;
@@ -130,9 +131,13 @@ LOOPFOR ::=
 ARGSFOR ::=
     TYPE TK_id TK_equal EXP TK_semicolon EXP TK_semicolon TK_id TK_inc ;
 
-// Bucle switch
+// Bucle while
 LOOPWHILE ::=
     RW_while TK_lpar EXP TK_rpar ENV ;
+
+// bucle do-while
+LOOPDOWHILE ::=
+    RW_do ENV RW_while TK_lpar EXP TK_rpar TK_semicolon ;
 
 // Impresion
 PRINT ::=
