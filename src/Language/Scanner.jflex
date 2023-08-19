@@ -100,7 +100,6 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 "{"                     {return new Symbol(TOK.TK_lbrc,      yyline, yychar, yytext());}
 "}"                     {return new Symbol(TOK.TK_rbrc,      yyline, yychar, yytext());}
 // Fin de Instrucciones
-","                     {return new Symbol(TOK.TK_comma,     yyline, yychar, yytext());}
 ":"                     {return new Symbol(TOK.TK_colon,     yyline, yychar, yytext());}
 ";"                     {return new Symbol(TOK.TK_semicolon, yyline, yychar, yytext());}
 \n                      {yychar = 1;}

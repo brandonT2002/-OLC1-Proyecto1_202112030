@@ -9,7 +9,6 @@ package Language;
 public class TOK {
   /* terminals */
   public static final int RW_switch = 11;
-  public static final int TK_comma = 46;
   public static final int TK_notequ = 33;
   public static final int TK_rbrc = 45;
   public static final int RW_bool = 7;
@@ -24,7 +23,7 @@ public class TOK {
   public static final int RW_true = 18;
   public static final int RW_while = 15;
   public static final int TK_equequ = 32;
-  public static final int TK_colon = 47;
+  public static final int TK_colon = 46;
   public static final int TK_or = 40;
   public static final int RW_void = 3;
   public static final int TK_lpar = 42;
@@ -45,7 +44,7 @@ public class TOK {
   public static final int TK_not = 41;
   public static final int TK_and = 39;
   public static final int TK_char = 22;
-  public static final int TK_semicolon = 48;
+  public static final int TK_semicolon = 47;
   public static final int TK_inc = 26;
   public static final int TK_div = 30;
   public static final int TK_less = 37;
@@ -104,7 +103,6 @@ public class TOK {
   "TK_rpar",
   "TK_lbrc",
   "TK_rbrc",
-  "TK_comma",
   "TK_colon",
   "TK_semicolon"
   };
