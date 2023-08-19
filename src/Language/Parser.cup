@@ -40,7 +40,8 @@ non terminal String INIT;
 non terminal String INSTRUCTIONS;
 non terminal String EXP, ARITHMETICS, RELATIONALS, LOGICS;
 non terminal String DECLID;
-non terminal String IFSTRUCT;
+non terminal String IFSTRUCT, SWITCHSTRUCT;
+non terminal String ENVS, CASESDEFAULT, CASES, CASE, DEFAULT;
 non terminal String PRINT;
 non terminal String INSTRUCTION;
 non terminal String REASIGN;
@@ -48,6 +49,7 @@ non terminal String TYPE;
 non terminal String ENV;
 
 /* 5. Precedencias */
+precedence left TK_colon;
 precedence left TK_or;
 precedence left TK_and;
 precedence right TK_not;
@@ -68,26 +70,55 @@ INSTRUCTIONS ::=
     INSTRUCTION              ;
 
 INSTRUCTION ::= 
-    DECLID                       |
-    REASIGN                      |
+    DECLID          TK_semicolon |
+    REASIGN         TK_semicolon |
     IFSTRUCT                     |
+    SWITCHSTRUCT                 |
     PRINT                        |
+    RW_break        TK_semicolon |
     error                        ;
 
 DECLID ::=
-    TYPE TK_id TK_equal EXP TK_semicolon ;
+    TYPE TK_id TK_equal EXP;
 
 REASIGN ::=
-    TK_id TK_equ EXP ;
+    TK_id TK_equal EXP ;
 
 IFSTRUCT ::=
     RW_if TK_lpar EXP TK_rpar ENV RW_else IFSTRUCT |
     RW_if TK_lpar EXP TK_rpar ENV RW_else ENV      |
     RW_if TK_lpar EXP TK_rpar ENV                  ;
 
+SWITCHSTRUCT ::=
+    RW_switch :s TK_lpar EXP :exp TK_rpar ENVS ;
+
+ENVS ::=
+    TK_lbrc CASESDEFAULT TK_rbrc |
+    TK_lbrc TK_rbrc              ;
+
+CASESDEFAULT ::=
+    CASES DEFAULT |
+    CASES         |
+    DEFAULT       ;
+
+CASES ::= 
+    CASES CASE |
+    CASE       ;
+
+CASE ::= 
+    RW_case EXP TK_colon INSTRUCTIONS |
+    RW_case EXP TK_colon ENV          |
+    RW_case EXP TK_colon              ;
+
+DEFAULT ::=
+    RW_default TK_colon INSTRUCTIONS |
+    RW_default TK_colon ENV          |
+    RW_default TK_colon              ;
+
 PRINT ::=
     RW_print TK_lpar EXP TK_rpar TK_semicolon |
     RW_print TK_lpar TK_rpar TK_semicolon     ;
+
 
 ENV ::=
     TK_lbrc INSTRUCTIONS TK_rbrc |
