@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-
-import Components.ErrorL;
-import java_cup.runtime.Symbol;
+import Language.Parser;
 import Language.Scanner;
-public class ScannerTest {
+public class ParserTest {
     public static void main(String[] args) throws Exception {
         try {
             String input = readInput("./Inputs/ejemplo.sp");
@@ -17,16 +15,9 @@ public class ScannerTest {
                     new StringReader(input)
                 )
             );
-            System.out.println(input);
-            Symbol token;
-            System.out.println("TOKEN" + " ".repeat(25 - "TOKEN".length()) + "LINE" + " ".repeat(6 - "LINE".length()) + "COLUMN" + " ".repeat(8 - "COLUMN".length()) + "TYPE");
-            do {
-                token = scanner.next_token();
-                System.out.println(token.value + " ".repeat(25 - String.valueOf(token.value).length()) + token.left + " ".repeat(6 - String.valueOf(token.left).length()) + token.right + " ".repeat(8 - String.valueOf(token.right).length()) + Language.TOK.terminalNames[token.sym]);
-            } while(token.value != null);
-            for(ErrorL error : scanner.getErrors()) {
-                System.out.println(error);
-            }
+            Parser parser = new Parser(scanner);
+            parser.parse();
+            System.out.println("-> " + parser.getErrors());
         }
         catch(Exception e) {
             System.out.println(e);
@@ -38,7 +29,6 @@ public class ScannerTest {
             FileInputStream fis = new FileInputStream(archivo);
             InputStreamReader isr = new InputStreamReader(fis,"UTF-8");
             BufferedReader br = new BufferedReader(isr);
-            
             String texto = "";
             String linea;
             while ((linea = br.readLine()) != null) {

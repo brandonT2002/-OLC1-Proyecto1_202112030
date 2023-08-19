@@ -8,4 +8,7 @@ public class Response {
     public Response(ErrorS error) {
         this.error = error;
     }
+    public String toString() {
+        return (execution != null ? execution : error) + "";
+    }
 }
