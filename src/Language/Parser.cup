@@ -43,6 +43,7 @@ non terminal String DECLID;
 non terminal String IFSTRUCT, SWITCHSTRUCT;
 non terminal String ENVS, CASESDEFAULT, CASES, CASE, DEFAULT;
 non terminal String LOOPFOR, ARGSFOR;
+non terminal String LOOPWHILE;
 non terminal String PRINT;
 non terminal String INSTRUCTION;
 non terminal String REASIGN;
@@ -76,6 +77,7 @@ INSTRUCTION ::=
     IFSTRUCT                     |
     SWITCHSTRUCT                 |
     LOOPFOR                      |
+    LOOPWHILE                    |
     PRINT                        |
     RW_break        TK_semicolon |
     error                        ;
@@ -121,12 +123,16 @@ DEFAULT ::=
     RW_default TK_colon ENV          |
     RW_default TK_colon              ;
 
-// Estructura for
+// Bucle for
 LOOPFOR ::=
     RW_for TK_lpar ARGSFOR TK_rpar ENV ;
 
 ARGSFOR ::=
     TYPE TK_id TK_equal EXP TK_semicolon EXP TK_semicolon TK_id TK_inc ;
+
+// Bucle switch
+LOOPWHILE ::=
+    RW_while TK_lpar EXP TK_rpar ENV ;
 
 // Impresion
 PRINT ::=
