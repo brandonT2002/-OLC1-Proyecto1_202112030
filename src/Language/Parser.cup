@@ -25,7 +25,8 @@ parser code
 :}
 
 /* 3. Terminales */
-terminal String RW_main, RW_void, RW_int, RW_double, RW_char, RW_bool, RW_string;
+terminal String RW_main, RW_void, RW_defG, RW_barG, RW_pieG;
+terminal String RW_int, RW_double, RW_char, RW_bool, RW_string, RW_newVal;
 terminal String RW_if, RW_else, RW_switch, RW_case, RW_default, RW_for, RW_while, RW_do;
 terminal String RW_break;
 terminal String RW_true, RW_false, RW_print;
@@ -33,22 +34,24 @@ terminal String TK_string, TK_char, TK_int, TK_double, TK_id, TK_inc;
 terminal String TK_plus, TK_minus, TK_mult, TK_div, TK_uminus;
 terminal String TK_equequ, TK_notequ, TK_lessequ, TK_moreequ, TK_equal, TK_less, TK_more;
 terminal String TK_and, TK_or, TK_not;
-terminal String TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_colon, TK_semicolon;
+terminal String TK_dollar, TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_lbrk, TK_rbrk,TK_comma, TK_colon, TK_semicolon;
 
 /* 4. No Terminales */
 non terminal String INIT;
-non terminal String INSTRUCTIONS;
-non terminal String EXP, ARITHMETICS, RELATIONALS, LOGICS;
-non terminal String DECLID;
+non terminal String INSTRUCTIONS, INSTRUCTIONSEST;
+non terminal String INSTRUCTION, INSTRUCTIONEST;
+non terminal String EXP, EXPEST, ARITHMETICS, RELATIONALS, LOGICS;
+non terminal String DECLID, DECFUNC, TYPEEST;
+non terminal String SYMBSTAT, DECLIDEST;
+non terminal String ARRAYSDEF, VALUES, VALUE;
 non terminal String IFSTRUCT, SWITCHSTRUCT;
 non terminal String ENVS, CASESDEFAULT, CASES, CASE, DEFAULT;
 non terminal String LOOPFOR, ARGSFOR;
 non terminal String LOOPWHILE, LOOPDOWHILE;
 non terminal String PRINT;
-non terminal String INSTRUCTION;
 non terminal String REASIGN;
 non terminal String TYPE;
-non terminal String ENV;
+non terminal String ENV, ENVEST;
 
 /* 5. Precedencias */
 precedence left TK_colon;
@@ -74,6 +77,7 @@ INSTRUCTIONS ::=
 INSTRUCTION ::= 
     DECLID          TK_semicolon |
     REASIGN         TK_semicolon |
+    DECFUNC                      |
     IFSTRUCT                     |
     SWITCHSTRUCT                 |
     LOOPFOR                      |
@@ -83,13 +87,69 @@ INSTRUCTION ::=
     RW_break        TK_semicolon |
     error                        ;
 
+INSTRUCTIONSEST ::=
+    INSTRUCTIONSEST INSTRUCTIONEST |
+    INSTRUCTIONEST                 ;
+
+INSTRUCTIONEST ::=
+    DECLIDEST       TK_semicolon |
+    REASIGN         TK_semicolon |
+    ARRAYSDEF                    ;
+
 // Declaracion de variables
 DECLID ::=
     TYPE TK_id TK_equal EXP |
-    TYPE TK_id ;
+    TYPE TK_id              ;
 
+DECLIDEST ::= 
+    TYPEEST TK_id TK_equal EXPEST |
+    TYPEEST TK_id              ;
+
+// Reasignación
 REASIGN ::=
     TK_id TK_equal EXP ;
+
+// Declaración de funciones
+DECFUNC ::=
+    RW_void RW_defG TK_lpar TK_rpar ENVEST |
+    RW_void RW_barG TK_lpar TK_rpar ENVEST |
+    RW_void RW_pieG TK_lpar TK_rpar ENVEST ;
+
+// Simbolos en Archivo StatPy
+SYMBSTAT ::=
+    TK_dollar TK_lbrc RW_newVal TK_comma TK_string TK_comma TK_string TK_rbrc ;
+
+// Arreglos
+ARRAYSDEF ::=
+    RW_string TK_lbrk TK_rbrk TK_id TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
+    RW_double TK_lbrk TK_rbrk TK_id TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
+
+VALUES ::=
+    VALUES TK_comma VALUE |
+    VALUE                 ;
+
+VALUE ::=
+    SYMBSTAT  |
+    TK_string |
+    TK_id     ;
+
+// Entorno estadístico
+ENVEST ::=
+    TK_lbrc INSTRUCTIONSEST TK_rbrc |
+    TK_lbrc TK_rbrc                 ;
+
+// Tipos estadisticos
+TYPEEST ::=
+    RW_string  |
+    RW_double  ;
+
+// Expresiones
+EXPEST ::=
+    SYMBSTAT              |
+    TK_id                 |
+    TK_string             |
+    TK_double             |
+    TK_lpar EXP  TK_rpar  ;
 
 // Estructura if
 IFSTRUCT ::=

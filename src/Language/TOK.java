@@ -8,64 +8,76 @@ package Language;
 /** CUP generated class containing symbol constants. */
 public class TOK {
   /* terminals */
-  public static final int RW_switch = 11;
-  public static final int TK_notequ = 33;
-  public static final int TK_rbrc = 45;
-  public static final int RW_bool = 7;
-  public static final int RW_break = 17;
-  public static final int TK_lessequ = 34;
-  public static final int TK_string = 21;
-  public static final int TK_equal = 36;
+  public static final int TK_rbrk = 52;
+  public static final int RW_switch = 15;
+  public static final int TK_comma = 53;
+  public static final int TK_dollar = 46;
+  public static final int TK_notequ = 37;
+  public static final int TK_rbrc = 50;
+  public static final int RW_bool = 10;
+  public static final int RW_break = 21;
+  public static final int TK_lessequ = 38;
+  public static final int RW_barG = 5;
+  public static final int TK_string = 25;
+  public static final int TK_equal = 40;
   public static final int RW_main = 2;
-  public static final int RW_int = 4;
-  public static final int RW_string = 8;
-  public static final int RW_for = 14;
-  public static final int RW_true = 18;
-  public static final int RW_while = 15;
-  public static final int TK_equequ = 32;
-  public static final int TK_colon = 46;
-  public static final int TK_or = 40;
+  public static final int RW_newVal = 12;
+  public static final int RW_pieG = 6;
+  public static final int RW_int = 7;
+  public static final int RW_string = 11;
+  public static final int RW_for = 18;
+  public static final int RW_true = 22;
+  public static final int TK_equequ = 36;
+  public static final int RW_while = 19;
+  public static final int TK_colon = 54;
+  public static final int TK_or = 44;
   public static final int RW_void = 3;
-  public static final int TK_lpar = 42;
-  public static final int TK_uminus = 31;
-  public static final int RW_false = 19;
-  public static final int RW_do = 16;
-  public static final int RW_else = 10;
-  public static final int TK_id = 25;
-  public static final int TK_double = 24;
+  public static final int TK_lpar = 47;
+  public static final int TK_uminus = 35;
+  public static final int RW_defG = 4;
+  public static final int RW_false = 23;
+  public static final int RW_do = 20;
+  public static final int RW_else = 14;
+  public static final int TK_id = 29;
+  public static final int TK_double = 28;
   public static final int EOF = 0;
-  public static final int RW_print = 20;
-  public static final int TK_more = 38;
+  public static final int RW_print = 24;
+  public static final int TK_more = 42;
   public static final int error = 1;
-  public static final int TK_int = 23;
-  public static final int RW_double = 5;
-  public static final int TK_mult = 29;
-  public static final int TK_lbrc = 44;
-  public static final int TK_not = 41;
-  public static final int TK_and = 39;
-  public static final int TK_char = 22;
-  public static final int TK_semicolon = 47;
-  public static final int TK_inc = 26;
-  public static final int TK_div = 30;
-  public static final int TK_less = 37;
-  public static final int RW_default = 13;
-  public static final int TK_moreequ = 35;
-  public static final int RW_char = 6;
-  public static final int TK_rpar = 43;
-  public static final int RW_if = 9;
-  public static final int TK_minus = 28;
-  public static final int RW_case = 12;
-  public static final int TK_plus = 27;
+  public static final int TK_int = 27;
+  public static final int TK_lbrk = 51;
+  public static final int RW_double = 8;
+  public static final int TK_mult = 33;
+  public static final int TK_lbrc = 49;
+  public static final int TK_not = 45;
+  public static final int TK_and = 43;
+  public static final int TK_char = 26;
+  public static final int TK_semicolon = 55;
+  public static final int TK_inc = 30;
+  public static final int TK_div = 34;
+  public static final int TK_less = 41;
+  public static final int RW_default = 17;
+  public static final int TK_moreequ = 39;
+  public static final int RW_char = 9;
+  public static final int TK_rpar = 48;
+  public static final int RW_if = 13;
+  public static final int TK_minus = 32;
+  public static final int RW_case = 16;
+  public static final int TK_plus = 31;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "RW_main",
   "RW_void",
+  "RW_defG",
+  "RW_barG",
+  "RW_pieG",
   "RW_int",
   "RW_double",
   "RW_char",
   "RW_bool",
   "RW_string",
+  "RW_newVal",
   "RW_if",
   "RW_else",
   "RW_switch",
@@ -99,10 +111,14 @@ public class TOK {
   "TK_and",
   "TK_or",
   "TK_not",
+  "TK_dollar",
   "TK_lpar",
   "TK_rpar",
   "TK_lbrc",
   "TK_rbrc",
+  "TK_lbrk",
+  "TK_rbrk",
+  "TK_comma",
   "TK_colon",
   "TK_semicolon"
   };

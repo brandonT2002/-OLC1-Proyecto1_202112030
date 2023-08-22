@@ -68,6 +68,11 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 "true"                  {return new Symbol(TOK.RW_true,      yyline, yychar, yytext());}
 "false"                 {return new Symbol(TOK.RW_false,     yyline, yychar, yytext());}
 "Console.Write"         {return new Symbol(TOK.RW_print,     yyline, yychar, yytext());}
+// Funciones Nativas
+"DefinirGlobales"       {return new Symbol(TOK.RW_defG,      yyline, yychar, yytext());}
+"GraficaBarras"         {return new Symbol(TOK.RW_barG,      yyline, yychar, yytext());}
+"GraficaPie"            {return new Symbol(TOK.RW_pieG,      yyline, yychar, yytext());}
+"NewValor"              {return new Symbol(TOK.RW_newVal,    yyline, yychar, yytext());}
 // Valores
 {STRING}                {return new Symbol(TOK.TK_string,    yyline, yychar, yytext());}
 {CHAR}                  {return new Symbol(TOK.TK_char,      yyline, yychar, yytext());}
@@ -75,7 +80,7 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 {DOUBLE}                {return new Symbol(TOK.TK_double,    yyline, yychar, yytext());}
 // Variables
 {ID}                    {return new Symbol(TOK.TK_id,        yyline, yychar, yytext());}
-// Incremento / Decremento
+// Incremento
 "++"                    {return new Symbol(TOK.TK_inc,       yyline, yychar, yytext());}
 // Operadores Aritméticos
 "+"                     {return new Symbol(TOK.TK_plus,      yyline, yychar, yytext());}
@@ -95,11 +100,15 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 "||"                    {return new Symbol(TOK.TK_or,        yyline, yychar, yytext());}
 "!"                     {return new Symbol(TOK.TK_not,       yyline, yychar, yytext());}
 // Símbolos de Agrupación
+"$"                     {return new Symbol(TOK.TK_dollar,    yyline, yychar, yytext());}
 "("                     {return new Symbol(TOK.TK_lpar,      yyline, yychar, yytext());}
 ")"                     {return new Symbol(TOK.TK_rpar,      yyline, yychar, yytext());}
 "{"                     {return new Symbol(TOK.TK_lbrc,      yyline, yychar, yytext());}
 "}"                     {return new Symbol(TOK.TK_rbrc,      yyline, yychar, yytext());}
+"["                     {return new Symbol(TOK.TK_lbrk,      yyline, yychar, yytext());}
+"]"                     {return new Symbol(TOK.TK_rbrk,      yyline, yychar, yytext());}
 // Fin de Instrucciones
+","                     {return new Symbol(TOK.TK_comma,     yyline, yychar, yytext());}
 ":"                     {return new Symbol(TOK.TK_colon,     yyline, yychar, yytext());}
 ";"                     {return new Symbol(TOK.TK_semicolon, yyline, yychar, yytext());}
 \n                      {yychar = 1;}
