@@ -27,6 +27,7 @@ parser code
 /* 3. Terminales */
 terminal String RW_main, RW_void, RW_defG, RW_barG, RW_pieG;
 terminal String RW_int, RW_double, RW_char, RW_bool, RW_string, RW_newVal;
+terminal String RW_title, RW_xAxis, RW_values, RW_titleX, RW_titleY;
 terminal String RW_if, RW_else, RW_switch, RW_case, RW_default, RW_for, RW_while, RW_do;
 terminal String RW_break;
 terminal String RW_true, RW_false, RW_print;
@@ -101,9 +102,12 @@ DECLID ::=
     TYPE TK_id TK_equal EXP |
     TYPE TK_id              ;
 
-DECLIDEST ::= 
-    TYPEEST TK_id TK_equal EXPEST |
-    TYPEEST TK_id              ;
+DECLIDEST ::=
+    RW_string RW_title TK_equal EXPEST  |
+    RW_string RW_titleX TK_equal EXPEST |
+    RW_string RW_titleY TK_equal EXPEST |
+    TYPEEST TK_id TK_equal EXPEST       |
+    TYPEEST TK_id                       ;
 
 // Reasignación
 REASIGN ::=
@@ -121,8 +125,8 @@ SYMBSTAT ::=
 
 // Arreglos
 ARRAYSDEF ::=
-    RW_string TK_lbrk TK_rbrk TK_id TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
-    RW_double TK_lbrk TK_rbrk TK_id TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
+    RW_string TK_lbrk TK_rbrk RW_xAxis TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
+    RW_double TK_lbrk TK_rbrk RW_values TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
 
 VALUES ::=
     VALUES TK_comma VALUE |

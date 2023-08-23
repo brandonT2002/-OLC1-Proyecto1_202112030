@@ -68,6 +68,11 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 "true"                  {return new Symbol(TOK.RW_true,      yyline, yychar, yytext());}
 "false"                 {return new Symbol(TOK.RW_false,     yyline, yychar, yytext());}
 "Console.Write"         {return new Symbol(TOK.RW_print,     yyline, yychar, yytext());}
+"Titulo"                {return new Symbol(TOK.RW_title,     yyline, yychar, yytext());}
+"Ejex"                  {return new Symbol(TOK.RW_xAxis,     yyline, yychar, yytext());}
+"Valores"               {return new Symbol(TOK.RW_values,    yyline, yychar, yytext());}
+"TituloX"               {return new Symbol(TOK.RW_titleX,    yyline, yychar, yytext());}
+"TituloY"               {return new Symbol(TOK.RW_titleY,    yyline, yychar, yytext());}
 // Funciones Nativas
 "DefinirGlobales"       {return new Symbol(TOK.RW_defG,      yyline, yychar, yytext());}
 "GraficaBarras"         {return new Symbol(TOK.RW_barG,      yyline, yychar, yytext());}
