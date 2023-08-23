@@ -27,6 +27,7 @@ import Components.ErrorL;
 %full
 %line
 %unicode
+%ignorecase
 
 //Constructor
 %init{
