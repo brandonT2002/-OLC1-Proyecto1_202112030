@@ -1,0 +1,256 @@
+/* 1. Package e importaciones */
+package Language;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java_cup.runtime.*;
+import Components.Response;
+import Components.ErrorS;
+
+/* 2. Código para el parser, variables y métodos */
+parser code
+{:
+    ArrayList<Response> errorsS = new ArrayList<>();
+    public void syntax_error(Symbol sym) {
+        errorsS.add(new Response(new ErrorS(sym.left,sym.right,sym.value,TOK.terminalNames[sym.sym])));
+    }
+    public void unrecovered_syntax_error(Symbol sym) throws java.lang.Exception {
+        errorsS.add(new Response("Error Sintáctico sin recuperar."));
+    }
+    public String getErrors() {
+        return errorsS.stream().map(Object::toString).collect(Collectors.joining("\n-> "));
+    }
+    public boolean isSuccessExecution() {
+        return !(errorsS.size() > 0);
+    }
+:}
+
+/* 3. Terminales */
+terminal String RW_main, RW_void, RW_defG, RW_barG, RW_pieG;
+terminal String RW_int, RW_double, RW_char, RW_bool, RW_string, RW_newVal;
+terminal String RW_title, RW_xAxis, RW_values, RW_titleX, RW_titleY;
+terminal String RW_if, RW_else, RW_switch, RW_case, RW_default, RW_for, RW_while, RW_do;
+terminal String RW_break;
+terminal String RW_true, RW_false, RW_print;
+terminal String TK_string, TK_char, TK_int, TK_double, TK_id, TK_inc;
+terminal String TK_plus, TK_minus, TK_mult, TK_div, TK_uminus;
+terminal String TK_equequ, TK_notequ, TK_lessequ, TK_moreequ, TK_equal, TK_less, TK_more;
+terminal String TK_and, TK_or, TK_not;
+terminal String TK_dollar, TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_lbrk, TK_rbrk,TK_comma, TK_colon, TK_semicolon;
+
+/* 4. No Terminales */
+non terminal String INIT;
+non terminal String INSTRUCTIONS, INSTRUCTIONSEST;
+non terminal String INSTRUCTION, INSTRUCTIONEST;
+non terminal String EXP, EXPEST, ARITHMETICS, RELATIONALS, LOGICS;
+non terminal String DECLID, DECFUNC, TYPEEST;
+non terminal String SYMBSTAT, DECLIDEST;
+non terminal String ARRAYSDEF, VALUES, VALUE;
+non terminal String IFSTRUCT, SWITCHSTRUCT;
+non terminal String ENVS, CASESDEFAULT, CASES, CASE, DEFAULT;
+non terminal String LOOPFOR, ARGSFOR;
+non terminal String LOOPWHILE, LOOPDOWHILE;
+non terminal String PRINT;
+non terminal String REASIGN;
+non terminal String TYPE;
+non terminal String ENV, ENVEST;
+
+/* 5. Precedencias */
+precedence left TK_colon;
+precedence left TK_or;
+precedence left TK_and;
+precedence right TK_not;
+precedence left TK_equequ, TK_notequ;
+precedence left TK_lessequ, TK_moreequ, TK_less, TK_more;
+precedence left TK_plus, TK_minus;
+precedence left TK_mult, TK_div;
+precedence right TK_uminus;
+
+start with INIT;
+
+INIT ::=
+    RW_void RW_main TK_lpar TK_rpar TK_lbrc INSTRUCTIONS TK_rbrc |
+    RW_void RW_main TK_lpar TK_rpar TK_lbrc TK_rbrc              ;
+
+INSTRUCTIONS ::=
+    INSTRUCTIONS INSTRUCTION |
+    INSTRUCTION              ;
+
+INSTRUCTION ::= 
+    DECLID          TK_semicolon |
+    REASIGN         TK_semicolon |
+    DECFUNC                      |
+    IFSTRUCT                     |
+    SWITCHSTRUCT                 |
+    LOOPFOR                      |
+    LOOPWHILE                    |
+    LOOPDOWHILE                  |
+    PRINT                        |
+    RW_break        TK_semicolon |
+    error                        ;
+
+INSTRUCTIONSEST ::=
+    INSTRUCTIONSEST INSTRUCTIONEST |
+    INSTRUCTIONEST                 ;
+
+INSTRUCTIONEST ::=
+    DECLIDEST       TK_semicolon |
+    REASIGN         TK_semicolon |
+    ARRAYSDEF                    ;
+
+// Declaracion de variables
+DECLID ::=
+    TYPE TK_id TK_equal EXP |
+    TYPE TK_id              ;
+
+DECLIDEST ::=
+    RW_string RW_title TK_equal EXPEST  |
+    RW_string RW_titleX TK_equal EXPEST |
+    RW_string RW_titleY TK_equal EXPEST |
+    TYPEEST TK_id TK_equal EXPEST       |
+    TYPEEST TK_id                       ;
+
+// Reasignación
+REASIGN ::=
+    TK_id TK_equal EXP ;
+
+// Declaración de funciones
+DECFUNC ::=
+    RW_void RW_defG TK_lpar TK_rpar ENVEST |
+    RW_void RW_barG TK_lpar TK_rpar ENVEST |
+    RW_void RW_pieG TK_lpar TK_rpar ENVEST ;
+
+// Simbolos en Archivo StatPy
+SYMBSTAT ::=
+    TK_dollar TK_lbrc RW_newVal TK_comma TK_string TK_comma TK_string TK_rbrc ;
+
+// Arreglos
+ARRAYSDEF ::=
+    RW_string TK_lbrk TK_rbrk RW_xAxis TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
+    RW_double TK_lbrk TK_rbrk RW_values TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
+
+VALUES ::=
+    VALUES TK_comma VALUE |
+    VALUE                 ;
+
+VALUE ::=
+    SYMBSTAT  |
+    TK_string |
+    TK_id     ;
+
+// Entorno estadístico
+ENVEST ::=
+    TK_lbrc INSTRUCTIONSEST TK_rbrc |
+    TK_lbrc TK_rbrc                 ;
+
+// Tipos estadisticos
+TYPEEST ::=
+    RW_string  |
+    RW_double  ;
+
+// Expresiones
+EXPEST ::=
+    SYMBSTAT              |
+    TK_id                 |
+    TK_string             |
+    TK_double             |
+    TK_lpar EXP  TK_rpar  ;
+
+// Estructura if
+IFSTRUCT ::=
+    RW_if TK_lpar EXP TK_rpar ENV RW_else IFSTRUCT |
+    RW_if TK_lpar EXP TK_rpar ENV RW_else ENV      |
+    RW_if TK_lpar EXP TK_rpar ENV                  ;
+
+// Estructura switch-case
+SWITCHSTRUCT ::=
+    RW_switch :s TK_lpar EXP :exp TK_rpar ENVS ;
+
+ENVS ::=
+    TK_lbrc CASESDEFAULT TK_rbrc |
+    TK_lbrc TK_rbrc              ;
+
+CASESDEFAULT ::=
+    CASES DEFAULT |
+    CASES         |
+    DEFAULT       ;
+
+CASES ::= 
+    CASES CASE |
+    CASE       ;
+
+CASE ::= 
+    RW_case EXP TK_colon INSTRUCTIONS |
+    RW_case EXP TK_colon ENV          |
+    RW_case EXP TK_colon              ;
+
+DEFAULT ::=
+    RW_default TK_colon INSTRUCTIONS |
+    RW_default TK_colon ENV          |
+    RW_default TK_colon              ;
+
+// Bucle for
+LOOPFOR ::=
+    RW_for TK_lpar ARGSFOR TK_rpar ENV ;
+
+ARGSFOR ::=
+    TYPE TK_id TK_equal EXP TK_semicolon EXP TK_semicolon TK_id TK_inc ;
+
+// Bucle while
+LOOPWHILE ::=
+    RW_while TK_lpar EXP TK_rpar ENV ;
+
+// bucle do-while
+LOOPDOWHILE ::=
+    RW_do ENV RW_while TK_lpar EXP TK_rpar TK_semicolon ;
+
+// Impresion
+PRINT ::=
+    RW_print TK_lpar EXP TK_rpar TK_semicolon |
+    RW_print TK_lpar TK_rpar TK_semicolon     ;
+
+// Entorno
+ENV ::=
+    TK_lbrc INSTRUCTIONS TK_rbrc |
+    TK_lbrc TK_rbrc              ;
+
+// Tipos
+TYPE ::=
+    RW_string  |
+    RW_int     |
+    RW_bool    |
+    RW_char    |
+    RW_double  ;
+
+// Expresiones
+EXP ::=
+    ARITHMETICS           |
+    RELATIONALS           |
+    LOGICS                |
+    TK_id                 |
+    TK_string             |
+    TK_char               |
+    TK_int                |
+    TK_double             |
+    RW_true               |
+    RW_false              |
+    TK_lpar EXP  TK_rpar  ;
+
+ARITHMETICS ::=
+    EXP TK_plus  EXP |
+    EXP TK_minus EXP |
+    EXP TK_mult  EXP |
+    EXP TK_div   EXP |
+    TK_minus     EXP %prec TK_uminus ;
+
+RELATIONALS ::=
+    EXP TK_equequ  EXP |
+    EXP TK_notequ  EXP |
+    EXP TK_lessequ EXP |
+    EXP TK_moreequ EXP |
+    EXP TK_less    EXP |
+    EXP TK_more    EXP ;
+
+LOGICS ::=
+    EXP TK_and EXP |
+    EXP TK_or  EXP |
+    TK_not     EXP ;
