@@ -5,6 +5,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 
+import Controller.Controller;
 import Interface.Window;
 
 public class Main {
@@ -13,7 +14,8 @@ public class Main {
             UIManager.setLookAndFeel(new FlatOneDarkIJTheme());
         } catch (UnsupportedLookAndFeelException ex) {
         }
-        Window w = new Window();
+        Controller controller = new Controller();
+        Window w = new Window(controller);
         w.setVisible(true);
     }
 }
