@@ -6,6 +6,8 @@ import java.awt.event.MouseListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -88,32 +90,9 @@ public class ToolBar extends JPanel implements MouseListener {
         this.add(div);
     }
 
-    private void addCloseButton() {
-        close = new FunctionButton();
-        close.locationSize(1875, 0, 45, 35);
-        close.text("×", 25);
-        close.setHoverColor(Colors.RED);
-        close.addMouseListener(this);
-        this.add(close);
-    }
-
-    private void addMinimizeButton() {
-        minimize = new FunctionButton();
-        minimize.locationSize(1830, 0, 45, 35);
-        minimize.text("─", 20);
-        minimize.setHoverColor(Colors.LIGHTCOLOR);
-        minimize.addMouseListener(this);
-        this.add(minimize);
-    }
-
     private void chooseFile() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
-        }
         this.file = new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos SP (*.sp)", "sp");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos StatPy-Estadisticas", "sp","json");
         file.setFileFilter(filtro);
         int seleccion = file.showOpenDialog(null);
         if (seleccion == JFileChooser.APPROVE_OPTION) {
@@ -132,11 +111,6 @@ public class ToolBar extends JPanel implements MouseListener {
     }
 
     private void createFile(String content) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-                | UnsupportedLookAndFeelException e) {
-        }
         this.file = new JFileChooser();
         this.file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int seleccion = file.showDialog(null, "Seleccionar Directorio");
@@ -151,8 +125,7 @@ public class ToolBar extends JPanel implements MouseListener {
             icon = new ImageIcon(img);
             do {
 
-                name = (String) JOptionPane.showInputDialog(null, message, "Nuevo Proyecto", JOptionPane.PLAIN_MESSAGE,
-                        icon, null, null);
+                name = (String) JOptionPane.showInputDialog(null, message, "Nuevo Proyecto", JOptionPane.PLAIN_MESSAGE, icon, null, null);
                 if (name == null)
                     break;
                 else if (name.replace(" ", "").equals("")) {
@@ -178,10 +151,56 @@ public class ToolBar extends JPanel implements MouseListener {
                     }
                     break;
                 }
-                message = "El nuevo archivo no puede llamarse\ncon el mismo nombre de uno existente\nen el mismo directorio.\nNombre del Archivo OLC [.olc]:";
+                message = "El nuevo archivo no puede llamarse\ncon el mismo nombre de uno existente\nen el mismo directorio.\nNombre del Archivo PS [.ps]:";
             } while (true);
         }
     }
+
+    private void createJsonFile(String content) {
+    this.file = new JFileChooser();
+    this.file.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    int seleccion = file.showDialog(null, "Seleccionar Directorio");
+    if (seleccion == JFileChooser.APPROVE_OPTION) {
+        olcFile = file.getSelectedFile();
+        String name;
+        String message = "Nombre del Archivo JSON [.json]:";
+        String path;
+        ImageIcon icon = new ImageIcon(Icons.FILE2);
+        Image img = icon.getImage();
+        img = img.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+        icon = new ImageIcon(img);
+        do {
+            name = (String) JOptionPane.showInputDialog(null, message, "Nuevo Archivo JSON", JOptionPane.PLAIN_MESSAGE, icon, null, null);
+            if (name == null) {
+                break;
+            } else if (name.replace(" ", "").equals("")) {
+                message = "Debe Ingresar un Nombre.\nNombre del Archivo JSON [.json]:";
+                continue;
+            }
+            path = olcFile.getAbsolutePath() + "\\" + name + ".json";
+            auxiliar = new File(path);
+            if (!auxiliar.exists()) {
+                try {
+                        BufferedWriter writer = new BufferedWriter(
+                                new OutputStreamWriter(
+                                        new FileOutputStream(auxiliar),
+                                        "utf-8"));
+                        writer.write(content);
+                        writer.close();
+                        controller.pjs.add(new IconFile(controller.countPJ(), auxiliar, ide, controller));
+                        controller.serialize();
+                        controller.deserialize(ide);
+                        ide.lookPJFiles();
+                        controller.pjs.get(controller.countPJ() - 1).lookCode();
+                    } catch (Exception e1) {
+                    }
+                    break;
+            }
+            message = "El nuevo archivo no puede llamarse\ncon el mismo nombre de uno existente\nen el mismo directorio.\nNombre del Archivo JSON [.json]:";
+        } while (true);
+    }
+}
+
 
     private void deleteFile(File file) {
         File[] archivos = file.listFiles();
@@ -217,8 +236,26 @@ public class ToolBar extends JPanel implements MouseListener {
             try {
                 StyledDocument doc = ide.editorArea.editor.getStyledDocument();
                 String input = doc.getText(0, doc.getLength());
-                createFile(input);
+    
+                String[] options = { "Guardar como .sp", "Guardar como .json" };
+                int selectedOption = JOptionPane.showOptionDialog(
+                    this,
+                    "Seleccione la extensión para guardar el archivo:",
+                    "Guardar como",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+                );
+    
+                if (selectedOption == 0) {
+                    createFile(input);  // Guardar como .sp
+                } else if (selectedOption == 1) {
+                    createJsonFile(input);  // Guardar como .json
+                }
             } catch (Exception e1) {
+                e1.printStackTrace();
             }
         } else if (e.getSource() == close) {
             deleteDirectories();

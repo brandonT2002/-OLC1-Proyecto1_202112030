@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -39,21 +40,11 @@ public class IconFile extends JPanel implements MouseListener {
 		this.setBackground(null);
 	}
 
-	public IconFile(String texto) {
-		this.texto = texto;
-		this.setBackground(null);
-	}
-
 	public void locationSize(int x, int y, int w, int h) {
 		this.setBounds(x, y, w, h);
 		this.setLayout(null);
 		this.setVisible(true);
 		this.text(name, Colors.WHITE, 13);
-	}
-
-	public void text(Color color, int tamano) {
-		Icon();
-		this.add(new PJName(40, 0, this.getWidth() - 30, this.getHeight(), texto, tamano));
 	}
 
 	public void text(String texto, Color color, int tamano) {
@@ -62,7 +53,12 @@ public class IconFile extends JPanel implements MouseListener {
 	}
 
 	private void Icon() {
-		this.add(new IconImage(Icons.FILE1, 12, 3, this.getHeight() - 6, this.getHeight() - 6));
+		int arr = this.file.getName().lastIndexOf(".");
+		if(this.file.getName().substring(arr + 1).equals("sp")) {
+			this.add(new IconImage(Icons.FILE1, 12, 3, this.getHeight() - 6, this.getHeight() - 6));
+			return;
+		}
+		this.add(new IconImage(Icons.FILE2, 12, 3, this.getHeight() - 6, this.getHeight() - 6));
 	}
 
 	public void setHoverColor(Color color) {

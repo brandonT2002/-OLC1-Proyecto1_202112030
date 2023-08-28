@@ -4,23 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.Image;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import java_cup.runtime.Symbol;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import Controller.Controller;
@@ -30,12 +26,10 @@ import Templates.Icons;
 import Templates.Label;
 import Templates.RadioButton;
 
-public class IDE extends JPanel
-        implements ActionListener, KeyListener, MouseWheelListener, MouseListener, MouseMotionListener {
+public class IDE extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
     Controller controller;
     Button analyzeInput, uploadOuts, saveOLC;
     public JComboBox<String> regexCB;
-    public double zoomFactor = 1.05; // factor de zoom
     EditorArea editorArea;
     public Icon icono;
     public ImageIcon image;
@@ -44,7 +38,6 @@ public class IDE extends JPanel
     public JLabel img;
     JPanel editorAreaContent;
     JPanel editorAreaContentFalse;
-    // public JPanel graphics;
     JPanel projects;
     JScrollPane outScroll;
     public JTextPane outConsole;
@@ -53,6 +46,8 @@ public class IDE extends JPanel
     Symbol sym;
     Tag tag;
     ToolBar toolbar;
+    JRadioButton opStat;
+    JRadioButton opJson;
     Window w;
 
     public IDE(Window w) {
@@ -135,6 +130,32 @@ public class IDE extends JPanel
         saveOLC.setDesign(Colors.COLOR2);
         saveOLC.setHoverColor(Colors.COLOR3);
         saveOLC.addMouseListener(this);
+        // radio buttons
+        opStat = new JRadioButton("StatPy");
+        opStat.setBounds(1000, 56, 70, 22);  // Ajusta la posición y tamaño según tus necesidades
+        opStat.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // JOptionPane.showMessageDialog(IDE.this, "Has seleccionado la opción StatPy");
+                System.out.println(" -> Se analizaran archivos StatPy");
+            }
+        });
+        
+        opJson = new JRadioButton("Json");
+        opJson.setBounds(1070, 56, 60, 22);  // Ajusta la posición y tamaño según tus necesidades
+        opJson.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // JOptionPane.showMessageDialog(IDE.this, "Has seleccionado la opción Json");
+                System.out.println(" -> Se analizaran archivos Json");
+            }
+        });
+
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(opStat);
+        buttonGroup.add(opJson);
+
+        opStat.setSelected(true);
     }
 
     public void initManagerGraphs() {
@@ -223,6 +244,8 @@ public class IDE extends JPanel
         this.add(analyzeInput);
         this.add(uploadOuts);
         this.add(saveOLC);
+        this.add(opStat);
+        this.add(opJson);
     }
 
     void copyright() {
@@ -261,29 +284,6 @@ public class IDE extends JPanel
         setFormat();
     }
 
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        try {
-            int notches = e.getWheelRotation();
-            if (notches < 0) {
-                // zoom in
-                zoomFactor *= 1.05;
-            } else {
-                // zoom out
-                zoomFactor /= 1.05;
-            }
-            int w = image.getIconWidth();
-            int h = image.getIconHeight();
-            img.removeAll();
-            icono = new ImageIcon(image.getImage().getScaledInstance((int) (w * zoomFactor), (int) (h * zoomFactor),
-                    Image.SCALE_DEFAULT));
-            img.setIcon(icono);
-            img.setSize(icono.getIconWidth(), icono.getIconHeight());
-            // graphics.revalidate();
-            // graphics.repaint();
-        } catch (Exception e1) {
-        }
-    }
-
     public void mouseDragged(MouseEvent e) {
         try {
             int dx = e.getX() - posXImg;
@@ -311,7 +311,7 @@ public class IDE extends JPanel
             }
         } else if (e.getSource() == saveOLC) {
             if (indexFilePJ != -1) {
-                controller.saveOLCPJ(indexFilePJ, editorArea.editor);
+                controller.saveStatPyPJ(indexFilePJ, editorArea.editor);
             }
         }
     }

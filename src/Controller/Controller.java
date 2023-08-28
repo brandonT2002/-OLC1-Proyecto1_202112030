@@ -132,7 +132,7 @@ public class Controller {
         }
     }
 
-    public void saveOLCPJ(int index, JTextPane editor) {
+    public void saveStatPyPJ(int index, JTextPane editor) {
         try {
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(
