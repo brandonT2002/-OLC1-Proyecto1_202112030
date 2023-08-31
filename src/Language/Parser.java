@@ -755,7 +755,7 @@ class CUP$Parser$actions {
 		int insleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int insright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Instruction ins = (Instruction)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		RESULT = ins;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -767,7 +767,7 @@ class CUP$Parser$actions {
 		int insleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int insright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Instruction ins = (Instruction)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-
+		RESULT = ins;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1220,7 +1220,13 @@ class CUP$Parser$actions {
           case 48: // LOOPWHILE ::= RW_while TK_lpar EXP TK_rpar ENV 
             {
               Instruction RESULT =null;
-
+		int expleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Expression exp = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int envleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int envright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		ArrayList<Instruction> env = (ArrayList<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		RESULT = new While(exp, env);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("LOOPWHILE",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1229,7 +1235,13 @@ class CUP$Parser$actions {
           case 49: // LOOPDOWHILE ::= RW_do ENV RW_while TK_lpar EXP TK_rpar TK_semicolon 
             {
               Instruction RESULT =null;
-
+		int envleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
+		int envright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
+		ArrayList<Instruction> env = (ArrayList<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		int expleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int expright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Expression exp = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		RESULT = new DoWhile(env, exp);
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("LOOPDOWHILE",16, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

@@ -89,8 +89,8 @@ INSTRUCTION ::=
     IFSTRUCT     :ins              {:RESULT = ins;:} |
     SWITCHSTRUCT :ins              |
     LOOPFOR      :ins              {:RESULT = ins;:} |
-    LOOPWHILE    :ins              |
-    LOOPDOWHILE  :ins              |
+    LOOPWHILE    :ins              {:RESULT = ins;:} |
+    LOOPDOWHILE  :ins              {:RESULT = ins;:} |
     PRINT        :ins              {:RESULT = ins;:} |
     RW_break          TK_semicolon |
     DECFUNC      :ins              {:RESULT = new Empty();:} |
@@ -161,11 +161,11 @@ EXPFOR ::=
 
 // Bucle while
 LOOPWHILE ::=
-    RW_while TK_lpar EXP TK_rpar ENV ;
+    RW_while TK_lpar EXP :exp TK_rpar ENV :env {:RESULT = new While(exp, env);:} ;
 
 // bucle do-while
 LOOPDOWHILE ::=
-    RW_do ENV RW_while TK_lpar EXP TK_rpar TK_semicolon ;
+    RW_do ENV :env RW_while TK_lpar EXP :exp TK_rpar TK_semicolon {:RESULT = new DoWhile(env, exp);:};
 
 // Impresion
 PRINT ::=
