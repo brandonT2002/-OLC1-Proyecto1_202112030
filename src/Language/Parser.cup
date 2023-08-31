@@ -1,15 +1,18 @@
 /* 1. Package e importaciones */
 package Language;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 import java_cup.runtime.*;
 import Components.Response;
 import Components.ErrorS;
+import Convertor.*;
 
 /* 2. Código para el parser, variables y métodos */
 parser code
 {:
     ArrayList<Response> errorsS = new ArrayList<>();
+    public Instruction mainMethod;
     public void syntax_error(Symbol sym) {
         errorsS.add(new Response(new ErrorS(sym.left,sym.right,sym.value,TOK.terminalNames[sym.sym])));
     }
@@ -38,21 +41,26 @@ terminal String TK_and, TK_or, TK_not;
 terminal String TK_dollar, TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_lbrk, TK_rbrk,TK_comma, TK_colon, TK_semicolon;
 
 /* 4. No Terminales */
-non terminal String INIT;
-non terminal String INSTRUCTIONS, INSTRUCTIONSEST;
-non terminal String INSTRUCTION, INSTRUCTIONEST;
-non terminal String EXP, EXPEST, ARITHMETICS, RELATIONALS, LOGICS;
-non terminal String DECLID, DECFUNC, TYPEEST;
+non terminal Instruction INIT;
+non terminal ArrayList<Instruction> INSTRUCTIONS, ENVS, ENV;
+non terminal Instruction INSTRUCTION;
+non terminal Instruction DECLID, DECFUNC;
+non terminal Instruction IFSTRUCT, SWITCHSTRUCT;
+non terminal Instruction CASESDEFAULT, CASES, CASE, DEFAULT;
+non terminal Instruction LOOPFOR;
+non terminal String[] ARGSFOR;
+non terminal Instruction LOOPWHILE, LOOPDOWHILE;
+non terminal Instruction PRINT;
+non terminal Instruction REASIGN;
+non terminal Instruction ENVEST;
+non terminal Expression EXP, EXPEST, ARITHMETICS, RELATIONALS, LOGICS;
+non terminal String EXPF, EXPFOR;
+non terminal String TYPE;
+non terminal String INSTRUCTIONSEST;
+non terminal String INSTRUCTIONEST;
+non terminal String TYPEEST;
 non terminal String SYMBSTAT, DECLIDEST;
 non terminal String ARRAYSDEF, VALUES, VALUE;
-non terminal String IFSTRUCT, SWITCHSTRUCT;
-non terminal String ENVS, CASESDEFAULT, CASES, CASE, DEFAULT;
-non terminal String LOOPFOR, ARGSFOR;
-non terminal String LOOPWHILE, LOOPDOWHILE;
-non terminal String PRINT;
-non terminal String REASIGN;
-non terminal String TYPE;
-non terminal String ENV, ENVEST;
 
 /* 5. Precedencias */
 precedence left TK_colon;
@@ -68,92 +76,34 @@ precedence right TK_uminus;
 start with INIT;
 
 INIT ::=
-    RW_void RW_main TK_lpar TK_rpar TK_lbrc INSTRUCTIONS TK_rbrc |
-    RW_void RW_main TK_lpar TK_rpar TK_lbrc TK_rbrc              ;
+    RW_void RW_main TK_lpar TK_rpar TK_lbrc INSTRUCTIONS :ins TK_rbrc {:mainMethod = new MainMethod(ins); :} |
+    RW_void RW_main TK_lpar TK_rpar TK_lbrc TK_rbrc                   {:mainMethod = new MainMethod(null);:} ;
 
 INSTRUCTIONS ::=
-    INSTRUCTIONS INSTRUCTION |
-    INSTRUCTION              ;
+    INSTRUCTIONS :ins INSTRUCTION :i {:RESULT = ins; RESULT.add(i);               :} |
+    INSTRUCTION :i                   {:RESULT = new ArrayList<>(Arrays.asList(i));:} ;
 
 INSTRUCTION ::= 
-    DECLID          TK_semicolon |
-    REASIGN         TK_semicolon |
-    DECFUNC                      |
-    IFSTRUCT                     |
-    SWITCHSTRUCT                 |
-    LOOPFOR                      |
-    LOOPWHILE                    |
-    LOOPDOWHILE                  |
-    PRINT                        |
-    RW_break        TK_semicolon |
-    error                        ;
-
-INSTRUCTIONSEST ::=
-    INSTRUCTIONSEST INSTRUCTIONEST |
-    INSTRUCTIONEST                 ;
-
-INSTRUCTIONEST ::=
-    DECLIDEST       TK_semicolon |
-    REASIGN         TK_semicolon |
-    ARRAYSDEF                    ;
+    DECLID       :ins TK_semicolon {:RESULT = ins;:} |
+    REASIGN      :ins TK_semicolon {:RESULT = ins;:} |
+    IFSTRUCT     :ins              |
+    SWITCHSTRUCT :ins              |
+    LOOPFOR      :ins              {:RESULT = ins;:} |
+    LOOPWHILE    :ins              |
+    LOOPDOWHILE  :ins              |
+    PRINT        :ins              {:RESULT = ins;:} |
+    RW_break          TK_semicolon |
+    DECFUNC      :ins              {:RESULT = new Empty();:} |
+    error                          ;
 
 // Declaracion de variables
 DECLID ::=
-    TYPE TK_id TK_equal EXP |
-    TYPE TK_id              ;
-
-DECLIDEST ::=
-    RW_string RW_title TK_equal EXPEST  |
-    RW_string RW_titleX TK_equal EXPEST |
-    RW_string RW_titleY TK_equal EXPEST |
-    TYPEEST TK_id TK_equal EXPEST       |
-    TYPEEST TK_id                       ;
+    TYPE TK_id :id TK_equal EXP :exp {:RESULT = new InitID(id.toLowerCase(), exp); :} |
+    TYPE TK_id :id                   {:RESULT = new InitID(id.toLowerCase(), null);:} ;
 
 // Reasignación
 REASIGN ::=
-    TK_id TK_equal EXP ;
-
-// Declaración de funciones
-DECFUNC ::=
-    RW_void RW_defG TK_lpar TK_rpar ENVEST |
-    RW_void RW_barG TK_lpar TK_rpar ENVEST |
-    RW_void RW_pieG TK_lpar TK_rpar ENVEST ;
-
-// Simbolos en Archivo StatPy
-SYMBSTAT ::=
-    TK_dollar TK_lbrc RW_newVal TK_comma TK_string TK_comma TK_string TK_rbrc ;
-
-// Arreglos
-ARRAYSDEF ::=
-    RW_string TK_lbrk TK_rbrk RW_xAxis TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
-    RW_double TK_lbrk TK_rbrk RW_values TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
-
-VALUES ::=
-    VALUES TK_comma VALUE |
-    VALUE                 ;
-
-VALUE ::=
-    SYMBSTAT  |
-    TK_string |
-    TK_id     ;
-
-// Entorno estadístico
-ENVEST ::=
-    TK_lbrc INSTRUCTIONSEST TK_rbrc |
-    TK_lbrc TK_rbrc                 ;
-
-// Tipos estadisticos
-TYPEEST ::=
-    RW_string  |
-    RW_double  ;
-
-// Expresiones
-EXPEST ::=
-    SYMBSTAT              |
-    TK_id                 |
-    TK_string             |
-    TK_double             |
-    TK_lpar EXP  TK_rpar  ;
+    TK_id :id TK_equal EXP :exp {:RESULT = new InitID(id.toLowerCase(), exp);:} ;
 
 // Estructura if
 IFSTRUCT ::=
@@ -190,10 +140,24 @@ DEFAULT ::=
 
 // Bucle for
 LOOPFOR ::=
-    RW_for TK_lpar ARGSFOR TK_rpar ENV ;
+    RW_for TK_lpar ARGSFOR :args TK_rpar ENV :env {:RESULT = new For(args[0], args[1], args[2], env);:} ;
 
 ARGSFOR ::=
-    TYPE TK_id TK_equal EXP TK_semicolon EXP TK_semicolon TK_id TK_inc ;
+    TYPE TK_id :id TK_equal EXP :start TK_semicolon EXPF :limit TK_semicolon TK_id TK_inc {:RESULT = new String[] {id, start.convert(), limit};:} ;
+
+EXPF ::=
+    TK_id TK_lessequ EXPFOR :exp {:RESULT = exp + " + 1";:} |
+    TK_id TK_less    EXPFOR :exp {:RESULT = exp         ;:} ;
+
+EXPFOR ::=
+    EXPFOR :e1 TK_plus  :s EXPFOR :e2 {:RESULT = e1 + " " + s + " " + e2;:} |
+    EXPFOR :e1 TK_minus :s EXPFOR :e2 {:RESULT = e1 + " " + s + " " + e2;:} |
+    EXPFOR :e1 TK_mult  :s EXPFOR :e2 {:RESULT = e1 + " " + s + " " + e2;:} |
+    EXPFOR :e1 TK_div   :s EXPFOR :e2 {:RESULT = e1 + " " + s + " " + e2;:} |
+    TK_lpar EXPFOR :exp TK_rpar       {:RESULT = "(" + exp + ")";        :} |
+    TK_id     :id                     {:RESULT = id.toLowerCase();       :} |
+    TK_int    :p                      {:RESULT = p;                      :} |
+    TK_double :p                      {:RESULT = p;                      :} ;
 
 // Bucle while
 LOOPWHILE ::=
@@ -205,13 +169,13 @@ LOOPDOWHILE ::=
 
 // Impresion
 PRINT ::=
-    RW_print TK_lpar EXP TK_rpar TK_semicolon |
-    RW_print TK_lpar TK_rpar TK_semicolon     ;
+    RW_print TK_lpar EXP :exp TK_rpar TK_semicolon {:RESULT = new Print(exp); :} |
+    RW_print TK_lpar TK_rpar TK_semicolon          {:RESULT = new Print(null);:} ;
 
 // Entorno
 ENV ::=
-    TK_lbrc INSTRUCTIONS TK_rbrc |
-    TK_lbrc TK_rbrc              ;
+    TK_lbrc INSTRUCTIONS :ins TK_rbrc {:RESULT = ins; :} |
+    TK_lbrc TK_rbrc                   {:RESULT = null;:} ;
 
 // Tipos
 TYPE ::=
@@ -223,34 +187,94 @@ TYPE ::=
 
 // Expresiones
 EXP ::=
-    ARITHMETICS           |
-    RELATIONALS           |
-    LOGICS                |
-    TK_id                 |
-    TK_string             |
-    TK_char               |
-    TK_int                |
-    TK_double             |
-    RW_true               |
-    RW_false              |
-    TK_lpar EXP  TK_rpar  ;
+    ARITHMETICS :exp         {:RESULT = exp;:} |
+    RELATIONALS :exp         {:RESULT = exp;:} |
+    LOGICS      :exp         {:RESULT = exp;:} |
+    TK_id       :id          {:RESULT = new Expression(id.toLowerCase());:} |
+    TK_string   :p           {:RESULT = new Expression(p);               :} |
+    TK_char     :p           {:RESULT = new Expression(p);               :} |
+    TK_int      :p           {:RESULT = new Expression(p);               :} |
+    TK_double   :p           {:RESULT = new Expression(p);               :} |
+    RW_true     :p           {:RESULT = new Expression("True");          :} |
+    RW_false    :p           {:RESULT = new Expression("False");         :} |
+    TK_lpar EXP :exp TK_rpar {:RESULT = new Expression(exp, null, null); :} ;
 
 ARITHMETICS ::=
-    EXP TK_plus  EXP |
-    EXP TK_minus EXP |
-    EXP TK_mult  EXP |
-    EXP TK_div   EXP |
-    TK_minus     EXP %prec TK_uminus ;
+    EXP :e1 TK_plus  :s EXP :e2 {:RESULT = new Expression(e1, s, e2);  :} |
+    EXP :e1 TK_minus :s EXP :e2 {:RESULT = new Expression(e1, s, e2);  :} |
+    EXP :e1 TK_mult  :s EXP :e2 {:RESULT = new Expression(e1, s, e2);  :} |
+    EXP :e1 TK_div   :s EXP :e2 {:RESULT = new Expression(e1, s, e2);  :} |
+    TK_minus :s         EXP :e2 {:RESULT = new Expression(null, s, e2);:} %prec TK_uminus ;
 
 RELATIONALS ::=
-    EXP TK_equequ  EXP |
-    EXP TK_notequ  EXP |
-    EXP TK_lessequ EXP |
-    EXP TK_moreequ EXP |
-    EXP TK_less    EXP |
-    EXP TK_more    EXP ;
+    EXP :e1 TK_equequ  :s EXP :e2 {:RESULT = new Expression(e1, s, e2);:} |
+    EXP :e1 TK_notequ  :s EXP :e2 {:RESULT = new Expression(e1, s, e2);:} |
+    EXP :e1 TK_lessequ :s EXP :e2 {:RESULT = new Expression(e1, s, e2);:} |
+    EXP :e1 TK_moreequ :s EXP :e2 {:RESULT = new Expression(e1, s, e2);:} |
+    EXP :e1 TK_less    :s EXP :e2 {:RESULT = new Expression(e1, s, e2);:} |
+    EXP :e1 TK_more    :s EXP :e2 {:RESULT = new Expression(e1, s, e2);:} ;
 
 LOGICS ::=
-    EXP TK_and EXP |
-    EXP TK_or  EXP |
-    TK_not     EXP ;
+    EXP :e1 TK_and :s EXP :e2 {:RESULT = new Expression(e1, "and", e2);  :} |
+    EXP :e1 TK_or  :s EXP :e2 {:RESULT = new Expression(e1, "or",  e2);  :} |
+    TK_not :s         EXP :e2 {:RESULT = new Expression(null, "not", e2);:} ;
+
+// StatPy
+INSTRUCTIONSEST ::=
+    INSTRUCTIONSEST INSTRUCTIONEST |
+    INSTRUCTIONEST                 ;
+
+INSTRUCTIONEST ::=
+    DECLIDEST       TK_semicolon |
+    REASIGN         TK_semicolon |
+    ARRAYSDEF                    ;
+
+// Declaración de funciones
+DECFUNC ::=
+    RW_void RW_defG TK_lpar TK_rpar ENVEST |
+    RW_void RW_barG TK_lpar TK_rpar ENVEST |
+    RW_void RW_pieG TK_lpar TK_rpar ENVEST ;
+
+// Declaracion de variables
+DECLIDEST ::=
+    RW_string RW_title TK_equal EXPEST  |
+    RW_string RW_titleX TK_equal EXPEST |
+    RW_string RW_titleY TK_equal EXPEST |
+    TYPEEST TK_id TK_equal EXPEST       |
+    TYPEEST TK_id                       ;
+
+// Simbolos en Archivo StatPy
+SYMBSTAT ::=
+    TK_dollar TK_lbrc RW_newVal TK_comma TK_string TK_comma TK_string TK_rbrc ;
+
+// Arreglos
+ARRAYSDEF ::=
+    RW_string TK_lbrk TK_rbrk RW_xAxis TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
+    RW_double TK_lbrk TK_rbrk RW_values TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
+
+VALUES ::=
+    VALUES TK_comma VALUE |
+    VALUE                 ;
+
+VALUE ::=
+    SYMBSTAT  |
+    TK_string |
+    TK_id     ;
+
+// Entorno estadístico
+ENVEST ::=
+    TK_lbrc INSTRUCTIONSEST TK_rbrc |
+    TK_lbrc TK_rbrc                 ;
+
+// Tipos estadisticos
+TYPEEST ::=
+    RW_string  |
+    RW_double  ;
+
+// Expresiones
+EXPEST ::=
+    SYMBSTAT              |
+    TK_id                 |
+    TK_string             |
+    TK_double             |
+    TK_lpar EXP  TK_rpar  ;
