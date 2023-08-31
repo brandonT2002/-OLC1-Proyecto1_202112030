@@ -86,7 +86,7 @@ INSTRUCTIONS ::=
 INSTRUCTION ::= 
     DECLID       :ins TK_semicolon {:RESULT = ins;:} |
     REASIGN      :ins TK_semicolon {:RESULT = ins;:} |
-    IFSTRUCT     :ins              |
+    IFSTRUCT     :ins              {:RESULT = ins;:} |
     SWITCHSTRUCT :ins              |
     LOOPFOR      :ins              {:RESULT = ins;:} |
     LOOPWHILE    :ins              |
@@ -107,9 +107,9 @@ REASIGN ::=
 
 // Estructura if
 IFSTRUCT ::=
-    RW_if TK_lpar EXP TK_rpar ENV RW_else IFSTRUCT |
-    RW_if TK_lpar EXP TK_rpar ENV RW_else ENV      |
-    RW_if TK_lpar EXP TK_rpar ENV                  ;
+    RW_if TK_lpar EXP :exp TK_rpar ENV :ins RW_else IFSTRUCT :b {:RESULT = new If(exp, ins, b);:}|
+    RW_if TK_lpar EXP :exp TK_rpar ENV :ins RW_else ENV :b      {:RESULT = new If(exp, ins, b);:}|
+    RW_if TK_lpar EXP :exp TK_rpar ENV :ins                     {:RESULT = new If(exp, ins);:};
 
 // Estructura switch-case
 SWITCHSTRUCT ::=
