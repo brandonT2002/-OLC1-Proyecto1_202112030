@@ -16,7 +16,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.text.StyledDocument;
-
+import Convertor.Instruction;
+import Convertor.MainMethod;
+import Language.Parser;
+import Language.Scanner;
+import Painter.ParserF;
+import Painter.ScannerF;
+import Painter.WordPainter;
 import Interface.IDE;
 import Interface.IconFile;
 import Interface.Path;
@@ -37,69 +43,58 @@ public class Controller {
         return pjs.size();
     }
 
-    public void setFormat(JTextPane editor) {
-        /*try {
-            StyledDocument doc = editor.getStyledDocument();
-            String input = doc.getText(0, doc.getLength());
-            WordPainter painter = new WordPainter();
-            ScannerF scanner = new ScannerF(
-                    new BufferedReader(
-                            new StringReader(input)),
-                    painter);
-            painter.setStyle(editor);
-            ParserF parser = new ParserF(scanner, painter);
-            parser.parse();
+    public void setFormat(JTextPane editor, int index) {
+        try {
+            IconFile currentFile = pjs.get(index);
+            int indexP = currentFile.name.lastIndexOf(".");
+            if(currentFile.name.substring(indexP + 1).equals("sp")) {
+                StyledDocument doc = editor.getStyledDocument();
+                String input = doc.getText(0, doc.getLength());
+                WordPainter painter = new WordPainter();
+                ScannerF scanner = new ScannerF(
+                        new BufferedReader(
+                                new StringReader(input)),
+                        painter);
+                painter.setStyle(editor);
+                ParserF parser = new ParserF(scanner, painter);
+                parser.parse();
+            }
+            else {
+
+            }
         } catch (Exception e) {
-        }*/
+        }
     }
 
     public void analyze(IDE ide, int index, JTextPane editor) {
-        /*try {
-            StyledDocument doc = editor.getStyledDocument();
-            String input = doc.getText(0, doc.getLength());
-            Scanner scanner = new Scanner(
-                    new BufferedReader(
-                            new StringReader(input)));
-            Parser parser = new Parser(scanner);
+        try {
             IconFile currentFile = pjs.get(index);
-            parser.parse();
-            Classes.Utils.Out.printConsole = new ArrayList<>();
-            if (parser.isSuccessExecution()) {
-                String out = "Mini J: " + currentFile.name + "\n-> Análisis de Entrada Exitoso.";
-                String outPrint = "Mini J: " + currentFile.name;
-                out += "\n-> Código Verificado\n-> Estado de Verificación: Satisfactorio";
-                Env global = new Env(null, "Global");
-                MainMethod mainMethod = null;
-                for (Instruction instruction : parser.execute) {
-                    try {
-                        if (instruction.typeInst == TypeInst.MAIN) {
-                            mainMethod = (MainMethod) instruction;
-                        } else {
-                            instruction.exec(global);
-                        }
-                    } catch (Exception e) {
-                    }
-                }
-                if (mainMethod != null) {
-                    mainMethod.exec(global);
-                    if(Classes.Utils.Out.printConsole.size() > 0){
-                        for(String print : Classes.Utils.Out.printConsole) {
-                            outPrint += "\n" + print;
-                        }
-                    } else {
-                        outPrint += "\n ->";
-                    }
+            int indexP = currentFile.name.lastIndexOf(".");
+            if(currentFile.name.substring(indexP + 1).equals("sp")) {
+                StyledDocument doc = editor.getStyledDocument();
+                String input = doc.getText(0, doc.getLength());
+                Scanner scanner = new Scanner(
+                    new BufferedReader(
+                        new StringReader(input)
+                    )
+                );
+                Parser parser = new Parser(scanner);
+                parser.parse();
+                if (parser.isSuccessExecution()) {
+                    String outPrint = "StatPy: " + currentFile.name + "\n\n";
+                    outPrint += parser.mainMethod.convert(0);
+                    ide.outConsole.setText(outPrint);
                 } else {
-                    outPrint += "\n->";
+                    ide.outConsole.setText("StatPy: " + currentFile.name + "\n-> " + parser.getErrors());
                 }
-                ide.outConsole.setText(outPrint);
-                console.setText(out);
-            } else {
-                console.setText("Mini J: " + currentFile.name + "\n-> " + parser.getErrors());
             }
-        } catch (Exception e) {
+            else {
+
+            }
+        }
+        catch(Exception e) {
             System.out.println(e);
-        }*/
+        }
     }
 
     public void lookGraphs(IDE ide, int index) {

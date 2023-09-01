@@ -47,16 +47,16 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 
 /* 3. Reglas Semanticas */
 // Valores
-{STRING}                {return new Symbol(TOKJSON.TK_string,    yyline, yychar, yytext());}
-{DOUBLE}                {return new Symbol(TOKJSON.TK_double,    yyline, yychar, yytext());}
+{STRING}                {return new Symbol(TOKJSON.TK_string,    yychar, yylength(), yytext());}
+{DOUBLE}                {return new Symbol(TOKJSON.TK_double,    yychar, yylength(), yytext());}
 // Símbolos de Agrupación
-"{"                     {return new Symbol(TOKJSON.TK_lbrc,      yyline, yychar, yytext());}
-"}"                     {return new Symbol(TOKJSON.TK_rbrc,      yyline, yychar, yytext());}
+"{"                     {return new Symbol(TOKJSON.TK_lbrc,      yychar, yylength(), yytext());}
+"}"                     {return new Symbol(TOKJSON.TK_rbrc,      yychar, yylength(), yytext());}
 // Fin de Instrucciones
-","                     {return new Symbol(TOKJSON.TK_comma,     yyline, yychar, yytext());}
-":"                     {return new Symbol(TOKJSON.TK_colon,     yyline, yychar, yytext());}
+","                     {return new Symbol(TOKJSON.TK_comma,     yychar, yylength(), yytext());}
+":"                     {return new Symbol(TOKJSON.TK_colon,     yychar, yylength(), yytext());}
 \n                      {yychar = 1;}
 {UNUSED}                {}
-{COMMENTS}              {}
-{COMMENTM}              {}
-.                       {addError(yyline, yychar, yytext());}
+{COMMENTS}              {painter.COMMENT(yychar,yylength());}
+{COMMENTM}              {painter.COMMENT(yychar,yylength());}
+.                       {painter.ERROR(yychar,yylength());}

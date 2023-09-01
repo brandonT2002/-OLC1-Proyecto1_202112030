@@ -11,12 +11,13 @@ public class MainMethod extends Instruction {
     public String convert(int tab) {
         String code = "def main():";
         if(instructions != null) {
+            String instructionsM = "";
             for(Instruction instruction : this.instructions) {
                 if(!instruction.name.equals("EMPTY")) {
-                    code += "\n" + instruction.convert(tab + 1);
+                    instructionsM += "\n" + instruction.convert(tab + 1);
                 }
             }
-            return code + callMain;
+            return code + (!instructionsM.isEmpty() ? instructionsM : "\n\tpass") + callMain;
         }
         return code + "\n\tpass" + callMain;
     }

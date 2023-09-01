@@ -53,8 +53,8 @@ public class IconFile extends JPanel implements MouseListener {
 	}
 
 	private void Icon() {
-		int arr = this.file.getName().lastIndexOf(".");
-		if(this.file.getName().substring(arr + 1).equals("sp")) {
+		int indexP = this.file.getName().lastIndexOf(".");
+		if(this.file.getName().substring(indexP + 1).equals("sp")) {
 			this.add(new IconImage(Icons.FILE1, 12, 3, this.getHeight() - 6, this.getHeight() - 6));
 			return;
 		}
