@@ -22,6 +22,8 @@ import Language.Parser;
 import Language.Scanner;
 import Painter.ParserF;
 import Painter.ScannerF;
+import Painter.ParserJsonF;
+import Painter.ScannerJsonF;
 import Painter.WordPainter;
 import Interface.IDE;
 import Interface.IconFile;
@@ -60,7 +62,16 @@ public class Controller {
                 parser.parse();
             }
             else {
-
+                StyledDocument doc = editor.getStyledDocument();
+                String input = doc.getText(0, doc.getLength());
+                WordPainter painter = new WordPainter();
+                ScannerJsonF scanner = new ScannerJsonF(
+                        new BufferedReader(
+                                new StringReader(input)),
+                        painter);
+                painter.setStyle(editor);
+                ParserJsonF parser = new ParserJsonF(scanner, painter);
+                parser.parse();
             }
         } catch (Exception e) {
         }

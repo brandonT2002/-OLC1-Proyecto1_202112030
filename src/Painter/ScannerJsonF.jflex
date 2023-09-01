@@ -1,5 +1,5 @@
 /* 1. Package e importaciones */
-package Language;
+package Painter;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
 import Components.ErrorL;
@@ -8,17 +8,17 @@ import Components.ErrorL;
 
 /* 2. Configuraciones para el analisis (Operaciones y Declaraciones) */
 %{
-    ArrayList<ErrorL> errors = new ArrayList<>();
-    void addError(int line, int column, String character) {
-        errors.add(new ErrorL(line, column, character));
-    }
-    public ArrayList<ErrorL> getErrors() {
-        return errors;
+    WordPainter painter;
+    public ScannerJsonF(java.io.Reader in,WordPainter painter) {
+        yyline = 0;
+        yychar = 0;
+        this.zzReader = in;
+        this.painter = painter;
     }
 %}
 
 //Directivas
-%class ScannerJson
+%class ScannerJsonF
 %public
 %cupsym TOKJSON
 %cup
@@ -55,7 +55,7 @@ COMMENTM = [/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]
 // Fin de Instrucciones
 ","                     {return new Symbol(TOKJSON.TK_comma,     yychar, yylength(), yytext());}
 ":"                     {return new Symbol(TOKJSON.TK_colon,     yychar, yylength(), yytext());}
-\n                      {yychar = 1;}
+\n                      {}
 {UNUSED}                {}
 {COMMENTS}              {painter.COMMENT(yychar,yylength());}
 {COMMENTM}              {painter.COMMENT(yychar,yylength());}
