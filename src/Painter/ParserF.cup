@@ -52,7 +52,8 @@ non terminal String TYPE;
 non terminal String ENV, ENVEST;
 non terminal String COLORMAIN, COLORVOID, COLORIF, COLORELSE, COLORDECLID;
 non terminal String COLORIDFUNC, COLORPRINT, COLORUSEID;
-non terminal String COLORLBRC, COLORRBRC, COLORLPAR, COLORRPAR;
+non terminal String COLORLBRC, COLORRBRC, COLORLBRK, COLORRBRK, COLORLPAR, COLORRPAR;
+non terminal String COLORESTID, COLORDBLEST, COLORSTREST, COLORESTAXIS, COLORESTVALUES;
 
 /* 5. Precedencias */
 precedence left TK_colon;
@@ -200,17 +201,17 @@ TYPE ::=
 
 // Expresiones
 EXP ::=
-    ARITHMETICS           |
-    RELATIONALS           |
-    LOGICS                |
-    TK_id     :tr           {:painter.USEVARIABLE(trleft, trright);:} |
-    TK_string :tr           {:painter.STRING(trleft, trright);:} |
-    TK_char   :tr           {:painter.CHAR(trleft, trright);:} |
-    TK_int    :tr           {:painter.NUMBER(trleft, trright);:} |
-    TK_double :tr           {:painter.NUMBER(trleft, trright);:} |
-    RW_true   :tr           {:painter.RW3(trleft, trright);:} |
-    RW_false  :tr           {:painter.RW3(trleft, trright);:} |
-    COLORLPAR EXP COLORRPAR  ;
+    ARITHMETICS              |
+    RELATIONALS              |
+    LOGICS                   |
+    TK_id     :tr            {:painter.USEVARIABLE(trleft, trright);:} |
+    TK_string :tr            {:painter.STRING(trleft, trright);     :} |
+    TK_char   :tr            {:painter.CHAR(trleft, trright);       :} |
+    TK_int    :tr            {:painter.NUMBER(trleft, trright);     :} |
+    TK_double :tr            {:painter.NUMBER(trleft, trright);     :} |
+    RW_true   :tr            {:painter.RW3(trleft, trright);        :} |
+    RW_false  :tr            {:painter.RW3(trleft, trright);        :} |
+    COLORLPAR EXP COLORRPAR   ;
 
 ARITHMETICS ::=
     EXP TK_plus  EXP |
@@ -253,53 +254,74 @@ COLORIDFUNC ::=
 
 // Declaracion de variables
 DECLIDEST ::=
-    RW_string RW_title TK_equal EXPEST  |
-    RW_string RW_titleX TK_equal EXPEST |
-    RW_string RW_titleY TK_equal EXPEST |
-    TYPEEST TK_id TK_equal EXPEST       |
-    TYPEEST TK_id                       ;
+    COLORESTID TK_equal EXPEST |
+    TYPEEST COLORDECLID TK_equal EXPEST       |
+    TYPEEST COLORDECLID                       ;
 
-// Simbolos en Archivo StatPy
-SYMBSTAT ::=
-    TK_dollar TK_lbrc RW_newVal TK_comma TK_string TK_comma TK_string TK_rbrc ;
+COLORESTID ::=
+    COLORSTREST RW_title  :id {:painter.VARIABLE(idleft, idright);:} |
+    COLORSTREST RW_titleX :id {:painter.VARIABLE(idleft, idright);:} |
+    COLORSTREST RW_titleY :id {:painter.VARIABLE(idleft, idright);:} ;
 
 // Arreglos
 ARRAYSDEF ::=
-    RW_string TK_lbrk TK_rbrk RW_xAxis TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
-    RW_double TK_lbrk TK_rbrk RW_values TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
+    COLORSTREST COLORLBRK COLORRBRK COLORESTAXIS TK_equal COLORLBRC VALUES COLORRBRC TK_semicolon |
+    COLORDBLEST COLORLBRK COLORRBRK COLORESTVALUES TK_equal COLORLBRC VALUES COLORRBRC TK_semicolon ;
+
+COLORESTAXIS ::=
+    RW_xAxis  :id {:painter.VARIABLE(idleft, idright);:} ;
+
+COLORESTVALUES ::=
+    RW_values :id {:painter.VARIABLE(idleft, idright);:} ;
+
+COLORSTREST ::=
+    RW_string :tp {:painter.RW5(tpleft, tpright);:} ;
+
+COLORDBLEST ::=
+    RW_double :tp {:painter.RW1(tpleft, tpright);:} ;
 
 VALUES ::=
     VALUES TK_comma VALUE |
     VALUE                 ;
 
 VALUE ::=
-    SYMBSTAT  |
-    TK_string |
-    TK_id     ;
+    SYMBSTAT      |
+    TK_string :tr {:painter.STRING(trleft, trright);     :} |
+    TK_id     :tr {:painter.USEVARIABLE(trleft, trright);:} ;
+
+// Simbolos en Archivo StatPy
+SYMBSTAT ::=
+    TK_dollar :d {:painter.RW2(dleft, dright);:} COLORLBRC RW_newVal :nv {:painter.RW4(nvleft, nvright);:} TK_comma TK_string :tr1 {:painter.STRING(tr1left, tr1right);:} TK_comma TK_string :tr2 {:painter.STRING(tr2left, tr2right);:} COLORRBRC ;
 
 // Entorno estadístico
 ENVEST ::=
-    TK_lbrc INSTRUCTIONSEST TK_rbrc |
-    TK_lbrc TK_rbrc                 ;
+    COLORLBRC INSTRUCTIONSEST COLORRBRC |
+    COLORLBRC COLORRBRC                 ;
 
 // Tipos estadisticos
 TYPEEST ::=
-    RW_string  |
-    RW_double  ;
+    RW_string :tp {:painter.RW5(tpleft, tpright);:} |
+    RW_double :tp {:painter.RW1(tpleft, tpright);:} ;
 
 // Expresiones
 EXPEST ::=
-    SYMBSTAT              |
-    TK_id                 |
-    TK_string             |
-    TK_double             |
-    TK_lpar EXP  TK_rpar  ;
+    SYMBSTAT                |
+    TK_id     :tr           {:painter.USEVARIABLE(trleft, trright);:} |
+    TK_string :tr           {:painter.STRING(trleft, trright);     :} |
+    TK_double :tr           {:painter.NUMBER(trleft, trright);     :} |
+    COLORLPAR EXP COLORRPAR  ;
 
 COLORLBRC ::=
     TK_lbrc :l {:painter.BRKT(nIB, lleft, lright); nIB ++;:} ;
 
 COLORRBRC ::=
     TK_rbrc :r {:nIB --; painter.BRKT(nIB, rleft, rright);:} ;
+
+COLORLBRK ::=
+    TK_lbrk :l {:painter.BRKT(nIB, lleft, lright); nIB ++;:} ;
+
+COLORRBRK ::=
+    TK_rbrk :r {:nIB --; painter.BRKT(nIB, rleft, rright);:} ;
 
 COLORLPAR ::=
     TK_lpar :l {:painter.BRKT(nIB, lleft, lright); nIB ++;:} ;
