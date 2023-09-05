@@ -17,7 +17,7 @@ public class DoWhile extends Instruction {
                     code += "\n" + instruction.convert(tab + 1);
                 }
             }
-            code += "\n" + "\t".repeat(tab + 1) + "if " + exp.convert() + ":";
+            code += "\n" + "\t".repeat(tab + 1) + "if not (" + exp.convert() + "):";
             code += "\n" + "\t".repeat(tab + 2) + "break";
             return code;
         }
