@@ -54,6 +54,7 @@ non terminal String COLORMAIN, COLORVOID, COLORIF, COLORELSE, COLORDECLID;
 non terminal String COLORIDFUNC, COLORPRINT, COLORUSEID;
 non terminal String COLORLBRC, COLORRBRC, COLORLBRK, COLORRBRK, COLORLPAR, COLORRPAR;
 non terminal String COLORESTID, COLORDBLEST, COLORSTREST, COLORESTAXIS, COLORESTVALUES;
+non terminal String CASECOLOR, DEFAULTCOLOR;
 
 /* 5. Precedencias */
 precedence left TK_colon;
@@ -121,7 +122,7 @@ COLORELSE ::=
 
 // Estructura switch-case
 SWITCHSTRUCT ::=
-    RW_switch :s COLORLPAR EXP :exp COLORRPAR ENVS ;
+    RW_switch :sw {:painter.RW2(swleft, swright);:} COLORLPAR EXP COLORRPAR ENVS ;
 
 ENVS ::=
     COLORLBRC CASESDEFAULT COLORRBRC |
@@ -136,15 +137,19 @@ CASES ::=
     CASES CASE |
     CASE       ;
 
-CASE ::= 
-    RW_case EXP TK_colon INSTRUCTIONS |
-    RW_case EXP TK_colon ENV          |
-    RW_case EXP TK_colon              ;
+CASE ::=
+    CASECOLOR EXP TK_colon :c {:painter.SYMBS1(cleft, cright);:} INSTRUCTIONS |
+    CASECOLOR EXP TK_colon :c {:painter.SYMBS1(cleft, cright);:}              ;
+
+CASECOLOR ::=
+    RW_case :cs {:painter.RW2(csleft, csright);:} ;
 
 DEFAULT ::=
-    RW_default TK_colon INSTRUCTIONS |
-    RW_default TK_colon ENV          |
-    RW_default TK_colon              ;
+    DEFAULTCOLOR TK_colon :c {:painter.SYMBS1(cleft, cright);:} INSTRUCTIONS |
+    DEFAULTCOLOR TK_colon :c {:painter.SYMBS1(cleft, cright);:}              ;
+
+DEFAULTCOLOR ::=
+    RW_default :df {:painter.RW2(dfleft, dfright);:} ;
 
 // Bucle for
 LOOPFOR ::=

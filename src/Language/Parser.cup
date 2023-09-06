@@ -42,11 +42,14 @@ terminal String TK_dollar, TK_lpar, TK_rpar, TK_lbrc, TK_rbrc, TK_lbrk, TK_rbrk,
 
 /* 4. No Terminales */
 non terminal Instruction INIT;
-non terminal ArrayList<Instruction> INSTRUCTIONS, ENVS, ENV;
+non terminal ArrayList<Instruction> INSTRUCTIONS, ENV;
 non terminal Instruction INSTRUCTION;
 non terminal Instruction DECLID, DECFUNC;
 non terminal Instruction IFSTRUCT, SWITCHSTRUCT;
-non terminal Instruction CASESDEFAULT, CASES, CASE, DEFAULT;
+non terminal ArrayList<Instruction> DEFAULT;
+non terminal ArrayList<Case> CASES;
+non terminal Case CASE;
+non terminal Object[] ENVS, CASESDEFAULT;
 non terminal Instruction LOOPFOR;
 non terminal String[] ARGSFOR;
 non terminal Instruction LOOPWHILE, LOOPDOWHILE;
@@ -87,7 +90,7 @@ INSTRUCTION ::=
     DECLID       :ins TK_semicolon {:RESULT = ins;:} |
     REASIGN      :ins TK_semicolon {:RESULT = ins;:} |
     IFSTRUCT     :ins              {:RESULT = ins;:} |
-    SWITCHSTRUCT :ins              |
+    SWITCHSTRUCT :ins              {:RESULT = ins;:}|
     LOOPFOR      :ins              {:RESULT = ins;:} |
     LOOPWHILE    :ins              {:RESULT = ins;:} |
     LOOPDOWHILE  :ins              {:RESULT = ins;:} |
@@ -113,30 +116,28 @@ IFSTRUCT ::=
 
 // Estructura switch-case
 SWITCHSTRUCT ::=
-    RW_switch :s TK_lpar EXP :exp TK_rpar ENVS ;
+    RW_switch TK_lpar EXP :exp TK_rpar ENVS :b {:RESULT = new SwitchCase(exp, (ArrayList<Case>) b[0], (ArrayList<Instruction>) b[1]);:} ;
 
 ENVS ::=
-    TK_lbrc CASESDEFAULT TK_rbrc |
-    TK_lbrc TK_rbrc              ;
+    TK_lbrc CASESDEFAULT :cd TK_rbrc {:RESULT = cd;:} |
+    TK_lbrc TK_rbrc                  {:RESULT = new Object[] {null, null};:} ;
 
 CASESDEFAULT ::=
-    CASES DEFAULT |
-    CASES         |
-    DEFAULT       ;
+    CASES :c DEFAULT :d {:RESULT = new Object[] {c,    d};   :} |
+    CASES :c            {:RESULT = new Object[] {c,    null};:} |
+    DEFAULT :d          {:RESULT = new Object[] {null, d};   :} ;
 
 CASES ::= 
-    CASES CASE |
-    CASE       ;
+    CASES :l CASE :c {:RESULT = l; RESULT.add(c);                 :} |
+    CASE :c          {:RESULT = new ArrayList<>(Arrays.asList(c));:} ;
 
 CASE ::= 
-    RW_case EXP TK_colon INSTRUCTIONS |
-    RW_case EXP TK_colon ENV          |
-    RW_case EXP TK_colon              ;
+    RW_case :c EXP :exp TK_colon INSTRUCTIONS :b {:RESULT = new Case(exp, b);                :} |
+    RW_case :c EXP :exp TK_colon                 {:RESULT = new Case(exp, new ArrayList<>());:} ;
 
 DEFAULT ::=
-    RW_default TK_colon INSTRUCTIONS |
-    RW_default TK_colon ENV          |
-    RW_default TK_colon              ;
+    RW_default TK_colon INSTRUCTIONS :b {:RESULT = b;:}|
+    RW_default TK_colon                 {:RESULT = new ArrayList<>();:};
 
 // Bucle for
 LOOPFOR ::=
