@@ -6,15 +6,11 @@ import java.awt.event.MouseListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.StyledDocument;
 import Controller.Controller;
@@ -38,15 +34,15 @@ public class ToolBar extends JPanel implements MouseListener {
         this.ide = ide;
         this.controller = this.ide.controller;
         init();
-        addOpenOLC();
-        addNewOLC();
-        addSaveAsOLC();
+        addOpenStat();
+        addNewStat();
+        addSaveAsStat();
         // addMinimizeButton();
         // addCloseButton();
         addDivisor();
     }
 
-    private void addOpenOLC() {
+    private void addOpenStat() {
         openOLC = new Button("Abrir");
         openOLC.locationSize(20, 5, 50, 25);
         openOLC.text(Colors.WHITE, 14);
@@ -56,7 +52,7 @@ public class ToolBar extends JPanel implements MouseListener {
         this.add(openOLC);
     }
 
-    private void addNewOLC() {
+    private void addNewStat() {
         newOLC = new Button("Nuevo");
         newOLC.locationSize(72, 5, 60, 25);
         newOLC.text(Colors.WHITE, 14);
@@ -66,7 +62,7 @@ public class ToolBar extends JPanel implements MouseListener {
         this.add(newOLC);
     }
 
-    private void addSaveAsOLC() {
+    private void addSaveAsStat() {
         saveAsOLC = new Button("Guardar Como");
         saveAsOLC.locationSize(134, 5, 110, 25);
         saveAsOLC.text(Colors.WHITE, 14);

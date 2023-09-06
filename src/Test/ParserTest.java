@@ -9,7 +9,7 @@ import Language.Scanner;
 public class ParserTest {
     public static void main(String[] args) throws Exception {
         try {
-            String input = readInput("./Inputs/ejemplo.sp");
+            String input = readInput("./Inputs/Print.sp");
             Scanner scanner = new Scanner(
                 new BufferedReader(
                     new StringReader(input)
@@ -17,6 +17,7 @@ public class ParserTest {
             );
             Parser parser = new Parser(scanner);
             parser.parse();
+            System.out.println(parser.mainMethod.convert(0));
             System.out.println("-> " + parser.getErrors());
         }
         catch(Exception e) {

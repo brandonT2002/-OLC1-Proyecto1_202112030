@@ -11,7 +11,7 @@ import Language.Scanner;
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
         try {
-            String input = readInput("./Inputs/ejemplo.sp");
+            String input = readInput("./Inputs/input1.sp");
             Scanner scanner = new Scanner(
                 new BufferedReader(
                     new StringReader(input)

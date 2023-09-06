@@ -14,6 +14,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import javax.swing.text.TabSet;
+import javax.swing.text.TabStop;
+
 import java_cup.runtime.Symbol;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -28,7 +34,7 @@ import Templates.RadioButton;
 
 public class IDE extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
     Controller controller;
-    Button analyzeInput, uploadOuts, saveOLC;
+    Button analyzeInput, uploadOuts, saveStatPy;
     public JComboBox<String> regexCB;
     EditorArea editorArea;
     public Icon icono;
@@ -46,8 +52,6 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
     Symbol sym;
     Tag tag;
     ToolBar toolbar;
-    JRadioButton opStat;
-    JRadioButton opJson;
     Window w;
 
     public IDE(Window w) {
@@ -71,7 +75,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         // graphics = new JPanel();
         analyzeInput = new Button();
         uploadOuts = new Button();
-        saveOLC = new Button();
+        saveStatPy = new Button();
         treesR = new RadioButton();
         nextsR = new RadioButton();
         transitionsR = new RadioButton();
@@ -102,16 +106,20 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         outConsole.setFont(new java.awt.Font("Consolas", 0, 13));
         outConsole.setBounds(0, 0, 770, 808);
 
+        TabStop[] tabStops = new TabStop[50];
+        int tabWidth = 4 * outConsole.getFontMetrics(outConsole.getFont()).charWidth(' ');
+        for (int i = 0; i < tabStops.length; i++) {
+            tabStops[i] = new TabStop((i + 1) * tabWidth, TabStop.ALIGN_LEFT, TabStop.LEAD_NONE);
+        }
+        TabSet tabSet = new TabSet(tabStops);
+        StyledDocument doc = outConsole.getStyledDocument();
+        Style paragraphStyle = doc.addStyle("paragraphStyle", null);
+        StyleConstants.setTabSet(paragraphStyle, tabSet);
+        doc.setParagraphAttributes(0, doc.getLength(), paragraphStyle, false);
+
         outScroll = new JScrollPane(outConsole);
         outScroll.setBorder(BorderFactory.createLineBorder(Colors.DARKCOLOR, 8));
         outScroll.setBounds(1100, 105, 770, 808);
-        // graphics
-        /*
-         * graphics.setBackground(Colors.DARKVSCODE);
-         * graphics.setBounds(1100, 105, 770, 620);
-         * graphics.setBorder(BorderFactory.createEmptyBorder());
-         * graphics.setLayout(null);
-         */
         // analyzeInput
         analyzeInput.locationSize(624, 56, 30, 30);
         analyzeInput.Icon(Icons.PLAY);
@@ -125,37 +133,11 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         uploadOuts.setHoverColor(Colors.COLOR3);
         uploadOuts.addMouseListener(this);
         // saveOLC
-        saveOLC.locationSize(694, 56, 30, 30);
-        saveOLC.Icon(Icons.SAVE);
-        saveOLC.setDesign(Colors.COLOR2);
-        saveOLC.setHoverColor(Colors.COLOR3);
-        saveOLC.addMouseListener(this);
-        // radio buttons
-        opStat = new JRadioButton("StatPy");
-        opStat.setBounds(1000, 56, 70, 22);  // Ajusta la posición y tamaño según tus necesidades
-        opStat.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // JOptionPane.showMessageDialog(IDE.this, "Has seleccionado la opción StatPy");
-                System.out.println(" -> Se analizaran archivos StatPy");
-            }
-        });
-        
-        opJson = new JRadioButton("Json");
-        opJson.setBounds(1070, 56, 60, 22);  // Ajusta la posición y tamaño según tus necesidades
-        opJson.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // JOptionPane.showMessageDialog(IDE.this, "Has seleccionado la opción Json");
-                System.out.println(" -> Se analizaran archivos Json");
-            }
-        });
-
-        ButtonGroup buttonGroup = new ButtonGroup();
-        buttonGroup.add(opStat);
-        buttonGroup.add(opJson);
-
-        opStat.setSelected(true);
+        saveStatPy.locationSize(694, 56, 30, 30);
+        saveStatPy.Icon(Icons.SAVE);
+        saveStatPy.setDesign(Colors.COLOR2);
+        saveStatPy.setHoverColor(Colors.COLOR3);
+        saveStatPy.addMouseListener(this);
     }
 
     public void initManagerGraphs() {
@@ -243,9 +225,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         // this.add(graphics);
         this.add(analyzeInput);
         this.add(uploadOuts);
-        this.add(saveOLC);
-        this.add(opStat);
-        this.add(opJson);
+        this.add(saveStatPy);
     }
 
     void copyright() {
@@ -265,12 +245,14 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
     }
 
     void execute() {
-        controller.setFormat(editorArea.editor);
+        controller.setFormat(editorArea.editor, indexFilePJ);
         controller.analyze(this, indexFilePJ, editorArea.editor);
     }
 
     void setFormat() {
-        controller.setFormat(editorArea.editor);
+        if (indexFilePJ != -1) {
+            controller.setFormat(editorArea.editor, indexFilePJ);
+        }
     }
 
     public void keyTyped(KeyEvent e) {
@@ -309,7 +291,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
             } else {
                 outConsole.setText("StatPy:\n->");
             }
-        } else if (e.getSource() == saveOLC) {
+        } else if (e.getSource() == saveStatPy) {
             if (indexFilePJ != -1) {
                 controller.saveStatPyPJ(indexFilePJ, editorArea.editor);
             }
@@ -337,9 +319,6 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == treesR || e.getSource() == nextsR || e.getSource() == transitionsR
-                || e.getSource() == afdsR || e.getSource() == afndsR || e.getSource() == regexCB) {
-            controller.lookGraphs(this, indexFilePJ);
-        }
+        
     }
 }
