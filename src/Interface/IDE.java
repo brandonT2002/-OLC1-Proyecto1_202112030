@@ -287,7 +287,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
             }
         } else if (e.getSource() == uploadOuts) {
             if (indexFilePJ != -1) {
-                // controller.validateString(indexFilePJ,editorArea.editor,console);
+                
             } else {
                 outConsole.setText("StatPy:\n->");
             }

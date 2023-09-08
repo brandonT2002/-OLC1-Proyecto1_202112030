@@ -1,5 +1,4 @@
 package Controller;
-import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,15 +10,14 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.text.StyledDocument;
-import Convertor.Instruction;
-import Convertor.MainMethod;
+
+import Env.Env;
 import Language.Parser;
+import Language.ParserJson;
 import Language.Scanner;
+import Language.ScannerJson;
 import Painter.ParserF;
 import Painter.ScannerF;
 import Painter.ParserJsonF;
@@ -31,6 +29,7 @@ import Interface.Path;
 
 public class Controller {
     public ArrayList<IconFile> pjs = new ArrayList<>();
+    public Env tableSym = new Env();
 
     public int existPJFile(String path) {
         for (int i = 0; i < pjs.size(); i++) {
@@ -49,13 +48,15 @@ public class Controller {
         try {
             IconFile currentFile = pjs.get(index);
             int indexP = currentFile.name.lastIndexOf(".");
-            if(currentFile.name.substring(indexP + 1).equals("sp")) {
+            String ext = currentFile.name.substring(indexP + 1);
+            // System.out.println(ext);
+            if(ext.equals("sp")) {
                 StyledDocument doc = editor.getStyledDocument();
                 String input = doc.getText(0, doc.getLength());
                 WordPainter painter = new WordPainter();
                 ScannerF scanner = new ScannerF(
-                        new BufferedReader(
-                                new StringReader(input)),
+                    new BufferedReader(
+                        new StringReader(input)),
                         painter);
                 painter.setStyle(editor);
                 ParserF parser = new ParserF(scanner, painter);
@@ -74,6 +75,7 @@ public class Controller {
                 parser.parse();
             }
         } catch (Exception e) {
+            // System.out.println(e);
         }
     }
 
@@ -81,7 +83,8 @@ public class Controller {
         try {
             IconFile currentFile = pjs.get(index);
             int indexP = currentFile.name.lastIndexOf(".");
-            if(currentFile.name.substring(indexP + 1).equals("sp")) {
+            String ext = currentFile.name.substring(indexP + 1);
+            if(ext.equals("sp")) {
                 StyledDocument doc = editor.getStyledDocument();
                 String input = doc.getText(0, doc.getLength());
                 Scanner scanner = new Scanner(
@@ -100,11 +103,27 @@ public class Controller {
                 }
             }
             else {
-
+                StyledDocument doc = editor.getStyledDocument();
+                String input = doc.getText(0, doc.getLength());
+                ScannerJson scanner = new ScannerJson(
+                    new BufferedReader(
+                        new StringReader(input)
+                    )
+                );
+                ParserJson parser = new ParserJson(scanner);
+                parser.parse();
+                if (parser.isSuccessExecution()) {
+                    String outPrint = "StatPy: " + currentFile.name + "\n\n";
+                    outPrint += "-> Archivo Json analizado correctamente\n";
+                    outPrint += "-> Valores Almacenados";
+                    ide.outConsole.setText(outPrint);
+                } else {
+                    ide.outConsole.setText("StatPy: " + currentFile.name + "\n-> " + parser.getErrors());
+                }
             }
         }
         catch(Exception e) {
-            System.out.println(e);
+            // System.out.println(e);
         }
     }
 

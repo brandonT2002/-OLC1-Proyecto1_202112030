@@ -13,7 +13,6 @@ public class SwitchCase extends Instruction {
     }
     public String convert(int tab) {
         String code = "\t".repeat(tab);
-        System.out.println("EMTRA AQUI");
         code += "def switch(cases, " + exp.convert() + "):";
         code += "\n" + "\t".repeat(tab + 1) + "switcher = {";
         if(cases != null) {

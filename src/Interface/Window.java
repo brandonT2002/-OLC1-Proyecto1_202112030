@@ -10,7 +10,7 @@ public class Window extends JFrame {
     // public static String iconMin = "Images/cubo1.png";
     // ImageIcon logo = new ImageIcon(ClassLoader.getSystemResource("Images/cubo1.png"));
     public Window(Controller controller) {
-        super("Mini J");
+        super("StatPy");
         this.controller = controller;
         init();
         initComponents();
