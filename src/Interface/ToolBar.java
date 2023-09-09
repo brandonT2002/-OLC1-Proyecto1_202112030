@@ -113,14 +113,13 @@ public class ToolBar extends JPanel implements MouseListener {
         if (seleccion == JFileChooser.APPROVE_OPTION) {
             olcFile = file.getSelectedFile();
             String name;
-            String message = "Nombre del Archivo SP [.sp]:";
             String path;
+            String message = "Nombre del Archivo SP [.sp]:";
             ImageIcon icon = new ImageIcon(Icons.FILE1);
             Image img = icon.getImage();
             img = img.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
             icon = new ImageIcon(img);
             do {
-
                 name = (String) JOptionPane.showInputDialog(null, message, "Nuevo Proyecto", JOptionPane.PLAIN_MESSAGE, icon, null, null);
                 if (name == null)
                     break;
@@ -227,7 +226,29 @@ public class ToolBar extends JPanel implements MouseListener {
         if (e.getSource() == openOLC) {
             chooseFile();
         } else if (e.getSource() == newOLC) {
-            createFile("");
+            try {
+                StyledDocument doc = ide.editorArea.editor.getStyledDocument();
+    
+                String[] options = { "Crear archivo .sp", "Crear archivo .json" };
+                int selectedOption = JOptionPane.showOptionDialog(
+                    this,
+                    "Seleccione la extensión para el nuevo archivo:",
+                    "Nuevo Archivo",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+                );
+    
+                if (selectedOption == 0) {
+                    createFile("");;  // Guardar como .sp
+                } else if (selectedOption == 1) {
+                    createJsonFile("");  // Guardar como .json
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         } else if (e.getSource() == saveAsOLC) {
             try {
                 StyledDocument doc = ide.editorArea.editor.getStyledDocument();
