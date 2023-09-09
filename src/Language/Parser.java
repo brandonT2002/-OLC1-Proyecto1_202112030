@@ -589,6 +589,8 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
     ArrayList<Response> errorsS = new ArrayList<>();
+    public boolean isThereGraphBar = false;
+    public boolean isThereGraphPie = false;
     TableSym tableSym;
     public Instruction mainMethod;
     EnvGraph envG;
@@ -610,7 +612,21 @@ public class Parser extends java_cup.runtime.lr_parser {
         return !(errorsS.size() > 0);
     }
 
-    public void barGraph(ArrayList<DataSym> heights, ArrayList<DataSym> labels, String title, String xTitle, String yTitle) {
+    public void barGraph() {
+        try {
+            barGraph(
+                envG.getArrDataSym("valores"),
+                envG.getArrDataSym("ejex"),
+                envG.getDataSym("titulo").dataS,
+                envG.getDataSym("titulox").dataS,
+                envG.getDataSym("tituloy").dataS
+            );
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void barGraph(ArrayList<DataSym> heights, ArrayList<DataSym> labels, String title, String xTitle, String yTitle) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Gráfica de Barras");
             frame.setSize(600, 400);
@@ -625,7 +641,19 @@ public class Parser extends java_cup.runtime.lr_parser {
         });
     }
 
-    public void pieChart(ArrayList<DataSym> data, ArrayList<DataSym> titles, String title) {
+    public void pieChart() {
+        try {
+            pieChart(
+                envG.getArrDataSym("valores"),
+                envG.getArrDataSym("ejex"),
+                envG.getDataSym("titulo").dataS
+            );
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void pieChart(ArrayList<DataSym> data, ArrayList<DataSym> titles, String title) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Gráfico de Pie Personalizado");
             frame.setSize(600, 400);
@@ -1829,19 +1857,7 @@ class CUP$Parser$actions {
           case 88: // DECFUNC ::= RW_void RW_barG TK_lpar TK_rpar ENVEST 
             {
               Instruction RESULT =null;
-		
-        try {
-            barGraph(
-                envG.getArrDataSym("valores"),
-                envG.getArrDataSym("ejex"),
-                envG.getDataSym("titulo").dataS,
-                envG.getDataSym("titulox").dataS,
-                envG.getDataSym("tituloy").dataS
-            );
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    
+		isThereGraphBar = true;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DECFUNC",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1850,17 +1866,7 @@ class CUP$Parser$actions {
           case 89: // DECFUNC ::= RW_void RW_pieG TK_lpar TK_rpar ENVEST 
             {
               Instruction RESULT =null;
-		
-        try {
-            pieChart(
-                envG.getArrDataSym("valores"),
-                envG.getArrDataSym("ejex"),
-                envG.getDataSym("titulo").dataS
-            );
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    
+		isThereGraphPie = true;
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("DECFUNC",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

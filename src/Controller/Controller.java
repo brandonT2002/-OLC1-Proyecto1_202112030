@@ -10,6 +10,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.text.StyledDocument;
 
@@ -31,6 +33,8 @@ import Interface.Path;
 public class Controller {
     public ArrayList<IconFile> pjs = new ArrayList<>();
     public TableSym tableSym = new TableSym();
+    Parser parser;
+    boolean thereGraph = false;
 
     public int existPJFile(String path) {
         for (int i = 0; i < pjs.size(); i++) {
@@ -94,7 +98,7 @@ public class Controller {
                     )
                 );
                 EnvGraph envG = new EnvGraph();
-                Parser parser = new Parser(scanner, tableSym, envG);
+                parser = new Parser(scanner, tableSym, envG);
                 parser.parse();
                 if (parser.isSuccessExecution()) {
                     String outPrint = "StatPy: " + currentFile.name + "\n\n";
@@ -129,33 +133,16 @@ public class Controller {
         catch(Exception e) {}
     }
 
-    public void lookGraphs(IDE ide, int index) {
-        try {
-            // ide.zoomFactor = 1.05;
-            // ide.graphics.removeMouseListener(ide);
-            // ide.graphics.removeMouseWheelListener(ide);
-            // ide.graphics.removeMouseMotionListener(ide);
-            // ide.regexCB.repaint();
-            // ide.graphics.removeAll();
-            // ide.img = new JLabel();
-            // ide.image = new ImageIcon((ide.treesR.isSelected() ?
-            // "Data/ARBOLES_201908355/tree_"
-            // : (ide.nextsR.isSelected() ? "Data/SIGUIENTES_201908355/nexts_"
-            // : (ide.transitionsR.isSelected() ? "Data/TRANSICIONES_201908355/transitions_"
-            // : (ide.afdsR.isSelected() ? "Data/AFD_201908355/afd_"
-            // : "Data/AFND_201908355/afnd_"))))
-            // + index + "_" + ide.regexCB.getSelectedItem() + ".png");
-            // ide.icono = new
-            // ImageIcon(ide.image.getImage().getScaledInstance(ide.image.getIconWidth(),
-            // ide.image.getIconHeight(), Image.SCALE_DEFAULT));
-            // ide.img.setIcon(ide.icono);
-            // ide.img.setBounds(0, 0, ide.icono.getIconWidth(), ide.icono.getIconHeight());
-            // ide.graphics.add(ide.img);
-            // ide.graphics.addMouseListener(ide);
-            // ide.graphics.addMouseWheelListener(ide);
-            // ide.graphics.addMouseMotionListener(ide);
-            // ide.graphics.repaint();
-        } catch (Exception e) {
+    public void graph() {
+        if (parser != null) {
+            if (parser.isThereGraphBar) {
+                parser.barGraph();
+            }
+            if (parser.isThereGraphPie) {
+                parser.pieChart();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha leido ning\u00FAn archivo", "Gráficas", 0);
         }
     }
 
