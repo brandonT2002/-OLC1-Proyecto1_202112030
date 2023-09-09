@@ -1,17 +1,42 @@
 package Graphs;
 import javax.swing.*;
+
+import TableSym.DataSym;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PieChart extends JPanel {
 
-    private List<Number> data;
-    private List<String> titles;
+    private List<Double> data = new ArrayList<>();
+    private List<String> titles = new ArrayList<>();
     private String title;
     private List<Color> colors;
 
-    public PieChart(List<Number> data, List<String> titles, String title) {
+    public PieChart(ArrayList<DataSym> data, ArrayList<DataSym> titles, String title) {
+        for(DataSym d : data) {
+            this.data.add(d.dataD);;
+        }
+        for(DataSym t : titles) {
+            this.titles.add(t.dataS);
+        }
+        this.title = title;
+
+        colors = new ArrayList<>();
+        colors.add(Color.decode("#CC4125"));
+        colors.add(Color.decode("#E06666"));
+        colors.add(Color.decode("#F6B26B"));
+        colors.add(Color.decode("#FFD966"));
+        colors.add(Color.decode("#93C47D"));
+        colors.add(Color.decode("#76A5AF"));
+        colors.add(Color.decode("#6D9EEB"));
+        colors.add(Color.decode("#6FA8DC"));
+        colors.add(Color.decode("#8E7CC3"));
+        colors.add(Color.decode("#C27BA0"));
+    }
+
+    public PieChart(List<Double> data, List<String> titles, String title) {
         this.data = data;
         this.titles = titles;
         this.title = title;

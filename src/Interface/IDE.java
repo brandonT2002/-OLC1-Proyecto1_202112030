@@ -102,7 +102,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         outConsole.setEditable(false);
         outConsole.setForeground(Colors.WHITE);
         outConsole.setBackground(Colors.DARKCOLOR);
-        outConsole.setText("StatPy:\n->");
+        outConsole.setText("StatPy:\n");
         outConsole.setFont(new java.awt.Font("Consolas", 0, 13));
         outConsole.setBounds(0, 0, 770, 808);
 
@@ -283,13 +283,13 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
             if (indexFilePJ != -1) {
                 execute();
             } else {
-                outConsole.setText("StatPy:\n->");
+                outConsole.setText("StatPy:\n");
             }
         } else if (e.getSource() == uploadOuts) {
             if (indexFilePJ != -1) {
                 
             } else {
-                outConsole.setText("StatPy:\n->");
+                outConsole.setText("StatPy:\n");
             }
         } else if (e.getSource() == saveStatPy) {
             if (indexFilePJ != -1) {

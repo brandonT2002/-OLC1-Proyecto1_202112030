@@ -8,9 +8,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
-import Env.Env;
+
 import Graphs.BarGraph;
 import Graphs.PieChart;
+import TableSym.*;
 
 public class TestJson {
     public static void main(String[] args) {
@@ -18,42 +19,42 @@ public class TestJson {
             UIManager.setLookAndFeel(new FlatOneDarkIJTheme());
         } catch (UnsupportedLookAndFeelException ex) {
         }
-        Env table = new Env();
+        TableSym table = new TableSym();
         table.addFile("File1.json");
-        table.addAttributes("File1.json", "Titulo", "Grafica de Barras");
-        table.addAttributes("File1.json", "Titulo1", "Grafica de Pie");
-        table.addAttributes("File1.json", "Eje X", "Deportes");
-        table.addAttributes("File1.json", "Eje Y", "Integrantes");
-        table.addAttributes("File1.json", "Valor1", 14);
-        table.addAttributes("File1.json", "Valor2", 5);
-        table.addAttributes("File1.json", "Valor3", 1);
-        table.addAttributes("File1.json", "Etiqueta1", "Real Madrid");
-        table.addAttributes("File1.json", "Etiqueta2", "Barcelona");
-        table.addAttributes("File1.json", "Etiqueta3", "Manchester City");
+        table.addAttribute("File1.json", "Titulo", "Grafica de Barras", true);
+        table.addAttribute("File1.json", "Titulo1", "Grafica de Pie", true);
+        table.addAttribute("File1.json", "Eje X", "Deportes", true);
+        table.addAttribute("File1.json", "Eje Y", "Integrantes", true);
+        table.addAttribute("File1.json", "Valor1", "14", false);
+        table.addAttribute("File1.json", "Valor2","5", false);
+        table.addAttribute("File1.json", "Valor3","1", false);
+        table.addAttribute("File1.json", "Etiqueta1", "Real Madrid", true);
+        table.addAttribute("File1.json", "Etiqueta2", "Barcelona", true);
+        table.addAttribute("File1.json", "Etiqueta3", "Manchester City", true);
 
-        List<Number> alturas = new ArrayList<>();
-            alturas.add((Number) table.getValue("File1.json", "Valor1"));
-            alturas.add((Number) table.getValue("File1.json", "Valor2"));
-            alturas.add((Number) table.getValue("File1.json", "Valor3"));
+        List<Double> alturas = new ArrayList<>();
+            alturas.add(table.getValue("File1.json", "Valor1").dataD);
+            alturas.add(table.getValue("File1.json", "Valor2").dataD);
+            alturas.add(table.getValue("File1.json", "Valor3").dataD);
 
         List<String> etiquetas = new ArrayList<>();
-            etiquetas.add((String) table.getValue("File1.json", "Etiqueta1"));
-            etiquetas.add((String) table.getValue("File1.json", "Etiqueta2"));
-            etiquetas.add((String) table.getValue("File1.json", "Etiqueta3"));
+            etiquetas.add(table.getValue("File1.json", "Etiqueta1").dataS);
+            etiquetas.add(table.getValue("File1.json", "Etiqueta2").dataS);
+            etiquetas.add(table.getValue("File1.json", "Etiqueta3").dataS);
 
-        barGraph(alturas, etiquetas, (String) table.getValue("File1.json", "Titulo"), (String) table.getValue("File1.json", "Eje X"), (String) table.getValue("File1.json", "Eje Y"));
+        barGraph(alturas, etiquetas, table.getValue("File1.json", "Titulo").dataS, table.getValue("File1.json", "Eje X").dataS, table.getValue("File1.json", "Eje Y").dataS);
 
-        List<Number> datos = new ArrayList<>();
-            datos.add((Number) table.getValue("File1.json", "Valor1"));
-            datos.add((Number) table.getValue("File1.json", "Valor2"));
-            datos.add((Number) table.getValue("File1.json", "Valor3"));
+        List<Double> datos = new ArrayList<>();
+            datos.add(table.getValue("File1.json", "Valor1").dataD);
+            datos.add(table.getValue("File1.json", "Valor2").dataD);
+            datos.add(table.getValue("File1.json", "Valor3").dataD);
 
         List<String> titulos = new ArrayList<>();
-            titulos.add((String) table.getValue("File1.json", "Etiqueta1"));
-            titulos.add((String) table.getValue("File1.json", "Etiqueta2"));
-            titulos.add((String) table.getValue("File1.json", "Etiqueta3"));
+            titulos.add(table.getValue("File1.json", "Etiqueta1").dataS);
+            titulos.add(table.getValue("File1.json", "Etiqueta2").dataS);
+            titulos.add(table.getValue("File1.json", "Etiqueta3").dataS);
 
-        pieChart(datos, titulos, (String) table.getValue("File1.json", "Titulo1"));
+        pieChart(datos, titulos, table.getValue("File1.json", "Titulo1").dataS);
 
 
         /*table.addFile("Project.json");
@@ -66,7 +67,7 @@ public class TestJson {
         // System.out.println(table.getValue("File2.json", "Valor1"));
     }
 
-    public static void barGraph(List<Number> alturas, List<String> etiquetas, String titulo, String tituloX, String tituloY) {
+    public static void barGraph(List<Double> alturas, List<String> etiquetas, String titulo, String tituloX, String tituloY) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Gráfica de Barras");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +83,7 @@ public class TestJson {
         });
     }
 
-    public static void pieChart(List<Number> datos, List<String> titulos, String titulo) {
+    public static void pieChart(List<Double> datos, List<String> titulos, String titulo) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Gráfico de Pie Personalizado");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

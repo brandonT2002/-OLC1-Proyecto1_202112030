@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import javax.swing.JTextPane;
 import javax.swing.text.StyledDocument;
 
-import Env.Env;
+import Graphs.EnvGraph;
 import Language.Parser;
 import Language.ParserJson;
 import Language.Scanner;
@@ -23,13 +23,14 @@ import Painter.ScannerF;
 import Painter.ParserJsonF;
 import Painter.ScannerJsonF;
 import Painter.WordPainter;
+import TableSym.TableSym;
 import Interface.IDE;
 import Interface.IconFile;
 import Interface.Path;
 
 public class Controller {
     public ArrayList<IconFile> pjs = new ArrayList<>();
-    public Env tableSym = new Env();
+    public TableSym tableSym = new TableSym();
 
     public int existPJFile(String path) {
         for (int i = 0; i < pjs.size(); i++) {
@@ -92,7 +93,8 @@ public class Controller {
                         new StringReader(input)
                     )
                 );
-                Parser parser = new Parser(scanner);
+                EnvGraph envG = new EnvGraph();
+                Parser parser = new Parser(scanner, tableSym, envG);
                 parser.parse();
                 if (parser.isSuccessExecution()) {
                     String outPrint = "StatPy: " + currentFile.name + "\n\n";
@@ -110,7 +112,8 @@ public class Controller {
                         new StringReader(input)
                     )
                 );
-                ParserJson parser = new ParserJson(scanner);
+                ParserJson parser = new ParserJson(scanner, tableSym);
+                parser.setFileName(currentFile.name);
                 parser.parse();
                 if (parser.isSuccessExecution()) {
                     String outPrint = "StatPy: " + currentFile.name + "\n\n";
@@ -118,13 +121,12 @@ public class Controller {
                     outPrint += "-> Valores Almacenados";
                     ide.outConsole.setText(outPrint);
                 } else {
+                    tableSym.filesJSON.remove(currentFile.name);
                     ide.outConsole.setText("StatPy: " + currentFile.name + "\n-> " + parser.getErrors());
                 }
             }
         }
-        catch(Exception e) {
-            // System.out.println(e);
-        }
+        catch(Exception e) {}
     }
 
     public void lookGraphs(IDE ide, int index) {

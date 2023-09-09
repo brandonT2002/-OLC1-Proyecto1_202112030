@@ -7,12 +7,30 @@ import java_cup.runtime.*;
 import Components.Response;
 import Components.ErrorS;
 import Convertor.*;
+import TableSym.*;
+import Graphs.*;
+// graficas
+import java.awt.BorderLayout;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 
 /* 2. Código para el parser, variables y métodos */
 parser code
 {:
     ArrayList<Response> errorsS = new ArrayList<>();
+    TableSym tableSym;
     public Instruction mainMethod;
+    EnvGraph envG;
+    public Parser(Scanner s, TableSym tableSym, EnvGraph envG) {
+        super(s);
+        this.tableSym = tableSym;
+        this.envG = envG;
+    }
     public void syntax_error(Symbol sym) {
         errorsS.add(new Response(new ErrorS(sym.left,sym.right,sym.value,TOK.terminalNames[sym.sym])));
     }
@@ -24,6 +42,33 @@ parser code
     }
     public boolean isSuccessExecution() {
         return !(errorsS.size() > 0);
+    }
+
+    public void barGraph(ArrayList<DataSym> heights, ArrayList<DataSym> labels, String title, String xTitle, String yTitle) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Gráfica de Barras");
+            frame.setSize(600, 400);
+
+            JPanel panel = new JPanel(new BorderLayout());
+
+            BarGraph grafica = new BarGraph(heights, labels, title, xTitle, yTitle);
+            panel.add(grafica);
+
+            frame.add(panel);
+            frame.setVisible(true);
+        });
+    }
+
+    public void pieChart(ArrayList<DataSym> data, ArrayList<DataSym> titles, String title) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Gráfico de Pie Personalizado");
+            frame.setSize(600, 400);
+
+            PieChart grafico = new PieChart(data, titles, title);
+            frame.add(grafico);
+
+            frame.setVisible(true);
+        });
     }
 :}
 
@@ -56,14 +101,17 @@ non terminal Instruction LOOPWHILE, LOOPDOWHILE;
 non terminal Instruction PRINT;
 non terminal Instruction REASIGN;
 non terminal Instruction ENVEST;
-non terminal Expression EXP, EXPEST, ARITHMETICS, RELATIONALS, LOGICS;
+non terminal Expression EXP, ARITHMETICS, RELATIONALS, LOGICS;
 non terminal String EXPF, EXPFOR;
 non terminal String TYPE;
+// Stat
+non terminal DataSym EXPEST, SYMBSTAT;
 non terminal String INSTRUCTIONSEST;
 non terminal String INSTRUCTIONEST;
 non terminal String TYPEEST;
-non terminal String SYMBSTAT, DECLIDEST;
-non terminal String ARRAYSDEF, VALUES, VALUE;
+non terminal String DECLIDEST;
+non terminal ArrayList<DataSym> VALUES;
+non terminal String ARRAYSDEF;
 
 /* 5. Precedencias */
 precedence left TK_colon;
@@ -233,34 +281,51 @@ INSTRUCTIONEST ::=
 // Declaración de funciones
 DECFUNC ::=
     RW_void RW_defG TK_lpar TK_rpar ENVEST |
-    RW_void RW_barG TK_lpar TK_rpar ENVEST |
-    RW_void RW_pieG TK_lpar TK_rpar ENVEST ;
+    RW_void RW_barG TK_lpar TK_rpar ENVEST {:
+        try {
+            barGraph(
+                envG.getArrDataSym("valores"),
+                envG.getArrDataSym("ejex"),
+                envG.getDataSym("titulo").dataS,
+                envG.getDataSym("titulox").dataS,
+                envG.getDataSym("tituloy").dataS
+            );
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    :} |
+    RW_void RW_pieG TK_lpar TK_rpar ENVEST {:
+        try {
+            pieChart(
+                envG.getArrDataSym("valores"),
+                envG.getArrDataSym("ejex"),
+                envG.getDataSym("titulo").dataS
+            );
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    :} ;
 
 // Declaracion de variables
 DECLIDEST ::=
-    RW_string RW_title TK_equal EXPEST  |
-    RW_string RW_titleX TK_equal EXPEST |
-    RW_string RW_titleY TK_equal EXPEST |
-    TYPEEST TK_id TK_equal EXPEST       |
-    TYPEEST TK_id                       ;
+    RW_string RW_title :id TK_equal EXPEST :dts  {:envG.saveDataSym(id.toLowerCase(), dts);:}|
+    RW_string RW_titleX :id TK_equal EXPEST :dts {:envG.saveDataSym(id.toLowerCase(), dts);:}|
+    RW_string RW_titleY :id TK_equal EXPEST :dts {:envG.saveDataSym(id.toLowerCase(), dts);:}|
+    TYPEEST TK_id :id TK_equal EXPEST :dts       {:envG.saveDataSym(id.toLowerCase(), dts);:}|
+    TYPEEST TK_id :id                            {:envG.saveDataSym(id.toLowerCase(), null);:};
 
 // Simbolos en Archivo StatPy
 SYMBSTAT ::=
-    TK_dollar TK_lbrc RW_newVal TK_comma TK_string TK_comma TK_string TK_rbrc ;
+    TK_dollar TK_lbrc RW_newVal TK_comma TK_string :fn TK_comma TK_string :att TK_rbrc {:RESULT = tableSym.getValue(fn.substring(1, fn.length() - 1), att.toLowerCase().substring(1, att.length() - 1));:} ;
 
 // Arreglos
 ARRAYSDEF ::=
-    RW_string TK_lbrk TK_rbrk RW_xAxis TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon |
-    RW_double TK_lbrk TK_rbrk RW_values TK_equal TK_lbrc VALUES TK_rbrc TK_semicolon ;
+    RW_string TK_lbrk TK_rbrk RW_xAxis :id TK_equal TK_lbrc VALUES :values TK_rbrc TK_semicolon  {:envG.saveArrDataSym(id.toLowerCase(), values);:} |
+    RW_double TK_lbrk TK_rbrk RW_values :id TK_equal TK_lbrc VALUES :values TK_rbrc TK_semicolon {:envG.saveArrDataSym(id.toLowerCase(), values);:} ;
 
 VALUES ::=
-    VALUES TK_comma VALUE |
-    VALUE                 ;
-
-VALUE ::=
-    SYMBSTAT  |
-    TK_string |
-    TK_id     ;
+    VALUES :list TK_comma EXPEST :exp {:RESULT = list; RESULT.add(exp);:} |
+    EXPEST :exp                       {:RESULT = new ArrayList<>(Arrays.asList(exp));:} ;
 
 // Entorno estadístico
 ENVEST ::=
@@ -274,8 +339,8 @@ TYPEEST ::=
 
 // Expresiones
 EXPEST ::=
-    SYMBSTAT              |
-    TK_id                 |
-    TK_string             |
-    TK_double             |
-    TK_lpar EXP  TK_rpar  ;
+    SYMBSTAT  :sym           {:RESULT = sym;:} |
+    TK_id     :id            {:RESULT = envG.getDataSym(id.toLowerCase());:} |
+    TK_string :str           {:RESULT = new DataSym(true, str.substring(1, str.length() - 1));:} |
+    TK_double :dbl           {:RESULT = new DataSym(false, Double.parseDouble(dbl));:} |
+    TK_lpar EXPEST :exp TK_rpar {:RESULT = exp;:} ;
