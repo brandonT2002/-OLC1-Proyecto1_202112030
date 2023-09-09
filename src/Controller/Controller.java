@@ -1,5 +1,4 @@
 package Controller;
-import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,26 +10,31 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.text.StyledDocument;
-import Convertor.Instruction;
-import Convertor.MainMethod;
+
+import Graphs.EnvGraph;
 import Language.Parser;
+import Language.ParserJson;
 import Language.Scanner;
+import Language.ScannerJson;
 import Painter.ParserF;
 import Painter.ScannerF;
 import Painter.ParserJsonF;
 import Painter.ScannerJsonF;
 import Painter.WordPainter;
+import TableSym.TableSym;
 import Interface.IDE;
 import Interface.IconFile;
 import Interface.Path;
 
 public class Controller {
     public ArrayList<IconFile> pjs = new ArrayList<>();
+    public TableSym tableSym = new TableSym();
+    Parser parser;
+    boolean thereGraph = false;
 
     public int existPJFile(String path) {
         for (int i = 0; i < pjs.size(); i++) {
@@ -49,13 +53,15 @@ public class Controller {
         try {
             IconFile currentFile = pjs.get(index);
             int indexP = currentFile.name.lastIndexOf(".");
-            if(currentFile.name.substring(indexP + 1).equals("sp")) {
+            String ext = currentFile.name.substring(indexP + 1);
+            // System.out.println(ext);
+            if(ext.equals("sp")) {
                 StyledDocument doc = editor.getStyledDocument();
                 String input = doc.getText(0, doc.getLength());
                 WordPainter painter = new WordPainter();
                 ScannerF scanner = new ScannerF(
-                        new BufferedReader(
-                                new StringReader(input)),
+                    new BufferedReader(
+                        new StringReader(input)),
                         painter);
                 painter.setStyle(editor);
                 ParserF parser = new ParserF(scanner, painter);
@@ -74,6 +80,7 @@ public class Controller {
                 parser.parse();
             }
         } catch (Exception e) {
+            // System.out.println(e);
         }
     }
 
@@ -81,7 +88,8 @@ public class Controller {
         try {
             IconFile currentFile = pjs.get(index);
             int indexP = currentFile.name.lastIndexOf(".");
-            if(currentFile.name.substring(indexP + 1).equals("sp")) {
+            String ext = currentFile.name.substring(indexP + 1);
+            if(ext.equals("sp")) {
                 StyledDocument doc = editor.getStyledDocument();
                 String input = doc.getText(0, doc.getLength());
                 Scanner scanner = new Scanner(
@@ -89,7 +97,8 @@ public class Controller {
                         new StringReader(input)
                     )
                 );
-                Parser parser = new Parser(scanner);
+                EnvGraph envG = new EnvGraph();
+                parser = new Parser(scanner, tableSym, envG);
                 parser.parse();
                 if (parser.isSuccessExecution()) {
                     String outPrint = "StatPy: " + currentFile.name + "\n\n";
@@ -100,41 +109,40 @@ public class Controller {
                 }
             }
             else {
-
+                StyledDocument doc = editor.getStyledDocument();
+                String input = doc.getText(0, doc.getLength());
+                ScannerJson scanner = new ScannerJson(
+                    new BufferedReader(
+                        new StringReader(input)
+                    )
+                );
+                ParserJson parser = new ParserJson(scanner, tableSym);
+                parser.setFileName(currentFile.name);
+                parser.parse();
+                if (parser.isSuccessExecution()) {
+                    String outPrint = "StatPy: " + currentFile.name + "\n\n";
+                    outPrint += "-> Archivo Json analizado correctamente\n";
+                    outPrint += "-> Valores Almacenados";
+                    ide.outConsole.setText(outPrint);
+                } else {
+                    tableSym.filesJSON.remove(currentFile.name);
+                    ide.outConsole.setText("StatPy: " + currentFile.name + "\n-> " + parser.getErrors());
+                }
             }
         }
-        catch(Exception e) {
-            System.out.println(e);
-        }
+        catch(Exception e) {}
     }
 
-    public void lookGraphs(IDE ide, int index) {
-        try {
-            // ide.zoomFactor = 1.05;
-            // ide.graphics.removeMouseListener(ide);
-            // ide.graphics.removeMouseWheelListener(ide);
-            // ide.graphics.removeMouseMotionListener(ide);
-            // ide.regexCB.repaint();
-            // ide.graphics.removeAll();
-            // ide.img = new JLabel();
-            // ide.image = new ImageIcon((ide.treesR.isSelected() ?
-            // "Data/ARBOLES_201908355/tree_"
-            // : (ide.nextsR.isSelected() ? "Data/SIGUIENTES_201908355/nexts_"
-            // : (ide.transitionsR.isSelected() ? "Data/TRANSICIONES_201908355/transitions_"
-            // : (ide.afdsR.isSelected() ? "Data/AFD_201908355/afd_"
-            // : "Data/AFND_201908355/afnd_"))))
-            // + index + "_" + ide.regexCB.getSelectedItem() + ".png");
-            // ide.icono = new
-            // ImageIcon(ide.image.getImage().getScaledInstance(ide.image.getIconWidth(),
-            // ide.image.getIconHeight(), Image.SCALE_DEFAULT));
-            // ide.img.setIcon(ide.icono);
-            // ide.img.setBounds(0, 0, ide.icono.getIconWidth(), ide.icono.getIconHeight());
-            // ide.graphics.add(ide.img);
-            // ide.graphics.addMouseListener(ide);
-            // ide.graphics.addMouseWheelListener(ide);
-            // ide.graphics.addMouseMotionListener(ide);
-            // ide.graphics.repaint();
-        } catch (Exception e) {
+    public void graph() {
+        if (parser != null) {
+            if (parser.isThereGraphBar) {
+                parser.barGraph();
+            }
+            if (parser.isThereGraphPie) {
+                parser.pieChart();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha leido ning\u00FAn archivo", "Gráficas", 0);
         }
     }
 

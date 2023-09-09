@@ -34,7 +34,7 @@ import Templates.RadioButton;
 
 public class IDE extends JPanel implements ActionListener, KeyListener, MouseListener, MouseMotionListener {
     Controller controller;
-    Button analyzeInput, uploadOuts, saveStatPy;
+    Button analyzeInput, whoGraphs, saveStatPy;
     public JComboBox<String> regexCB;
     EditorArea editorArea;
     public Icon icono;
@@ -74,7 +74,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         outConsole = new JTextPane();
         // graphics = new JPanel();
         analyzeInput = new Button();
-        uploadOuts = new Button();
+        whoGraphs = new Button();
         saveStatPy = new Button();
         treesR = new RadioButton();
         nextsR = new RadioButton();
@@ -102,7 +102,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         outConsole.setEditable(false);
         outConsole.setForeground(Colors.WHITE);
         outConsole.setBackground(Colors.DARKCOLOR);
-        outConsole.setText("StatPy:\n->");
+        outConsole.setText("StatPy:\n");
         outConsole.setFont(new java.awt.Font("Consolas", 0, 13));
         outConsole.setBounds(0, 0, 770, 808);
 
@@ -127,11 +127,11 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         analyzeInput.setHoverColor(Colors.COLOR3);
         analyzeInput.addMouseListener(this);
         // uploadOuts
-        uploadOuts.locationSize(659, 56, 30, 30);
-        uploadOuts.Icon(Icons.UPLOAD);
-        uploadOuts.setDesign(Colors.COLOR2);
-        uploadOuts.setHoverColor(Colors.COLOR3);
-        uploadOuts.addMouseListener(this);
+        whoGraphs.locationSize(659, 56, 30, 30);
+        whoGraphs.Icon(Icons.UPLOAD);
+        whoGraphs.setDesign(Colors.COLOR2);
+        whoGraphs.setHoverColor(Colors.COLOR3);
+        whoGraphs.addMouseListener(this);
         // saveOLC
         saveStatPy.locationSize(694, 56, 30, 30);
         saveStatPy.Icon(Icons.SAVE);
@@ -224,7 +224,7 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         this.add(outScroll);
         // this.add(graphics);
         this.add(analyzeInput);
-        this.add(uploadOuts);
+        this.add(whoGraphs);
         this.add(saveStatPy);
     }
 
@@ -247,6 +247,10 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
     void execute() {
         controller.setFormat(editorArea.editor, indexFilePJ);
         controller.analyze(this, indexFilePJ, editorArea.editor);
+    }
+
+    void showGraph() {
+        controller.graph();
     }
 
     void setFormat() {
@@ -283,13 +287,14 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
             if (indexFilePJ != -1) {
                 execute();
             } else {
-                outConsole.setText("StatPy:\n->");
+                outConsole.setText("StatPy:\n");
             }
-        } else if (e.getSource() == uploadOuts) {
+        } else if (e.getSource() == whoGraphs) {
             if (indexFilePJ != -1) {
-                // controller.validateString(indexFilePJ,editorArea.editor,console);
+                // controllerSystem.out.println("ENTRA AQUI");
+                showGraph();
             } else {
-                outConsole.setText("StatPy:\n->");
+                outConsole.setText("StatPy:\n");
             }
         } else if (e.getSource() == saveStatPy) {
             if (indexFilePJ != -1) {

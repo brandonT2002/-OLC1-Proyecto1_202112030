@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java_cup.runtime.*;
 import Components.Response;
 import Components.ErrorS;
+import TableSym.*;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -35,9 +36,9 @@ public class ParserJson extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\006\000\002\002\004\000\002\002\005\000\002\003" +
-    "\005\000\002\003\003\000\002\004\005\000\002\004\005" +
-    "" });
+    "\000\007\000\002\002\004\000\002\002\005\000\002\002" +
+    "\003\000\002\003\005\000\002\003\003\000\002\004\005" +
+    "\000\002\004\005" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -45,14 +46,14 @@ public class ParserJson extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\015\000\004\006\004\001\002\000\004\004\007\001" +
-    "\002\000\004\002\006\001\002\000\004\002\001\001\002" +
-    "\000\004\011\015\001\002\000\006\007\012\010\013\001" +
-    "\002\000\006\007\ufffe\010\ufffe\001\002\000\004\002\000" +
-    "\001\002\000\004\004\007\001\002\000\006\007\uffff\010" +
-    "\uffff\001\002\000\006\004\017\005\016\001\002\000\006" +
-    "\007\ufffc\010\ufffc\001\002\000\006\007\ufffd\010\ufffd\001" +
-    "\002" });
+    "\000\016\000\006\003\006\006\004\001\002\000\004\004" +
+    "\010\001\002\000\004\002\007\001\002\000\004\002\uffff" +
+    "\001\002\000\004\002\001\001\002\000\004\011\016\001" +
+    "\002\000\006\007\013\010\014\001\002\000\006\007\ufffd" +
+    "\010\ufffd\001\002\000\004\002\000\001\002\000\004\004" +
+    "\010\001\002\000\006\007\ufffe\010\ufffe\001\002\000\006" +
+    "\004\017\005\020\001\002\000\006\007\ufffc\010\ufffc\001" +
+    "\002\000\006\007\ufffb\010\ufffb\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -60,11 +61,12 @@ public class ParserJson extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\015\000\004\002\004\001\001\000\006\003\007\004" +
-    "\010\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\000\016\000\004\002\004\001\001\000\006\003\010\004" +
+    "\011\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\004\013\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001" });
+    "\001\000\002\001\001\000\004\004\014\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -104,6 +106,16 @@ public class ParserJson extends java_cup.runtime.lr_parser {
 
 
     ArrayList<Response> errorsS = new ArrayList<>();
+    TableSym tableSym;
+    String name;
+    public ParserJson(ScannerJson s, TableSym tableSym) {
+        super(s);
+        this.tableSym = tableSym;
+    }
+    public void setFileName(String name) {
+        this.name = name;
+        tableSym.addFile(name);
+    }
     public void syntax_error(Symbol sym) {
         errorsS.add(new Response(new ErrorS(sym.left,sym.right,sym.value,TOK.terminalNames[sym.sym])));
     }
@@ -166,7 +178,16 @@ class CUP$ParserJson$actions {
           return CUP$ParserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // PARAMS ::= PARAMS TK_comma PARAM 
+          case 2: // INIT ::= error 
+            {
+              String RESULT =null;
+
+              CUP$ParserJson$result = parser.getSymbolFactory().newSymbol("INIT",0, ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()), RESULT);
+            }
+          return CUP$ParserJson$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 3: // PARAMS ::= PARAMS TK_comma PARAM 
             {
               String RESULT =null;
 
@@ -175,7 +196,7 @@ class CUP$ParserJson$actions {
           return CUP$ParserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // PARAMS ::= PARAM 
+          case 4: // PARAMS ::= PARAM 
             {
               String RESULT =null;
 
@@ -184,19 +205,31 @@ class CUP$ParserJson$actions {
           return CUP$ParserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // PARAM ::= TK_string TK_colon TK_string 
+          case 5: // PARAM ::= TK_string TK_colon TK_string 
             {
               String RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)).value;
+		int valueleft = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()).left;
+		int valueright = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()).right;
+		String value = (String)((java_cup.runtime.Symbol) CUP$ParserJson$stack.peek()).value;
+		tableSym.addAttribute(name, id.toLowerCase().substring(1, id.length() - 1), value.substring(1, value.length() - 1), true);
               CUP$ParserJson$result = parser.getSymbolFactory().newSymbol("PARAM",2, ((java_cup.runtime.Symbol)CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)), ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()), RESULT);
             }
           return CUP$ParserJson$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // PARAM ::= TK_string TK_colon TK_double 
+          case 6: // PARAM ::= TK_string TK_colon TK_double 
             {
               String RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)).right;
+		String id = (String)((java_cup.runtime.Symbol) CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)).value;
+		int valueleft = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()).left;
+		int valueright = ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()).right;
+		String value = (String)((java_cup.runtime.Symbol) CUP$ParserJson$stack.peek()).value;
+		tableSym.addAttribute(name, id.toLowerCase().substring(1, id.length() - 1), value, false);
               CUP$ParserJson$result = parser.getSymbolFactory().newSymbol("PARAM",2, ((java_cup.runtime.Symbol)CUP$ParserJson$stack.elementAt(CUP$ParserJson$top-2)), ((java_cup.runtime.Symbol)CUP$ParserJson$stack.peek()), RESULT);
             }
           return CUP$ParserJson$result;

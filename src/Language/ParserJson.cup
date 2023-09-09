@@ -5,11 +5,22 @@ import java.util.stream.Collectors;
 import java_cup.runtime.*;
 import Components.Response;
 import Components.ErrorS;
+import TableSym.*;
 
 /* 2. Código para el parser, variables y métodos */
 parser code
 {:
     ArrayList<Response> errorsS = new ArrayList<>();
+    TableSym tableSym;
+    String name;
+    public ParserJson(ScannerJson s, TableSym tableSym) {
+        super(s);
+        this.tableSym = tableSym;
+    }
+    public void setFileName(String name) {
+        this.name = name;
+        tableSym.addFile(name);
+    }
     public void syntax_error(Symbol sym) {
         errorsS.add(new Response(new ErrorS(sym.left,sym.right,sym.value,TOK.terminalNames[sym.sym])));
     }
@@ -35,12 +46,14 @@ non terminal String PARAMS, PARAM;
 
 start with INIT;
 
-INIT ::= TK_lbrc PARAMS TK_rbrc ;
+INIT ::=
+    TK_lbrc PARAMS TK_rbrc |
+    error ;
 
 PARAMS ::= 
     PARAMS TK_comma PARAM |
     PARAM                 ;
 
 PARAM ::=
-    TK_string TK_colon TK_string |
-    TK_string TK_colon TK_double ;
+    TK_string :id TK_colon TK_string :value {:tableSym.addAttribute(name, id.toLowerCase().substring(1, id.length() - 1), value.substring(1, value.length() - 1), true);:} |
+    TK_string :id TK_colon TK_double :value {:tableSym.addAttribute(name, id.toLowerCase().substring(1, id.length() - 1), value, false);:} ;

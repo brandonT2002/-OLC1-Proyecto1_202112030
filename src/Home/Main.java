@@ -1,10 +1,7 @@
 package Home;
-
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
-
 import Controller.Controller;
 import Interface.Window;
 
