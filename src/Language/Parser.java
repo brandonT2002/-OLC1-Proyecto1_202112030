@@ -852,7 +852,7 @@ class CUP$Parser$actions {
           case 13: // INSTRUCTION ::= RW_break TK_semicolon 
             {
               Instruction RESULT =null;
-
+		RESULT = new Break();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("INSTRUCTION",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

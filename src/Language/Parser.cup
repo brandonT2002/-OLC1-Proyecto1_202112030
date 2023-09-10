@@ -166,12 +166,12 @@ INSTRUCTION ::=
     DECLID       :ins TK_semicolon {:RESULT = ins;:} |
     REASIGN      :ins TK_semicolon {:RESULT = ins;:} |
     IFSTRUCT     :ins              {:RESULT = ins;:} |
-    SWITCHSTRUCT :ins              {:RESULT = ins;:}|
+    SWITCHSTRUCT :ins              {:RESULT = ins;:} |
     LOOPFOR      :ins              {:RESULT = ins;:} |
     LOOPWHILE    :ins              {:RESULT = ins;:} |
     LOOPDOWHILE  :ins              {:RESULT = ins;:} |
     PRINT        :ins              {:RESULT = ins;:} |
-    RW_break          TK_semicolon |
+    RW_break          TK_semicolon {:RESULT = new Break();:} |
     DECFUNC      :ins              {:RESULT = new Empty();:} |
     error                          ;
 
