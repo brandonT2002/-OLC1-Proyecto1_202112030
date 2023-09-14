@@ -1,0 +1,87 @@
+:root{
+    --fontHeading: 'Montserrat', sans-serif;
+    --fontParrafo: 'Montserrat', sans-serif;
+
+    --primary: #161B22;
+    --secondary: #161B22;
+    --gray: #8899A6;
+    --blue: #1EA1F1;
+    --white: #fff;
+}
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+*,*::before{
+    box-sizing: inherit;
+}
+body{
+    font-family: var(--fontParrafo);
+    font-size: 1.6rem;
+    line-height: 2;
+    background-color: var(--primary);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/*Chrome, Safari, Edge, Opera*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+/*Furefox*/
+input[type=number] {
+    -moz-appearance: textfield;
+}
+/*global*/
+.container{
+    width: 100%;
+    margin: 0 auto;
+}
+h1,h2,h3,h4{
+    font-family: var(--fontHeading);
+}
+h1{
+    font-size: 4.8rem;
+    color: var(--white);
+}
+/*tulities*/
+.no-margin{
+    margin: 0;
+}
+.no-padding{
+    padding: 0;
+}
+.center-text{
+    text-align: center;
+}
+/* table */
+.container-table{
+    width: 90%;
+    color: var(--white);
+    padding: 2rem;
+    padding-bottom: 9rem;
+}
+table {
+    border-radius: .6rem;
+    border-collapse: collapse;
+    font-family: var(--fontHeading);
+    width: 100%;
+}
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even){
+    background-color: var(--secondary);
+    padding: 4rem;
+}
+th {
+    background-color: #0D1117;
+    color: var(--white);
+}
+tr:hover{
+    background-color: #bdcdd623;
+}

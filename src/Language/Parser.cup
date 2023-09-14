@@ -28,6 +28,9 @@ parser code
     TableSym tableSym;
     public Instruction mainMethod;
     EnvGraph envG;
+    FuncDefG globalsDef;
+    FuncDefPie pieGraph;
+    FuncDefBar barGraph;
     public Parser(Scanner s, TableSym tableSym, EnvGraph envG) {
         super(s);
         this.tableSym = tableSym;
@@ -46,57 +49,16 @@ parser code
         return !(errorsS.size() > 0);
     }
 
-    public void barGraph() {
-        try {
-            barGraph(
-                envG.getArrDataSym("valores"),
-                envG.getArrDataSym("ejex"),
-                envG.getDataSym("titulo").dataS,
-                envG.getDataSym("titulox").dataS,
-                envG.getDataSym("tituloy").dataS
-            );
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+    public void defineGlobals() {
+        globalsDef.define(envG, tableSym);
     }
 
-    private void barGraph(ArrayList<DataSym> heights, ArrayList<DataSym> labels, String title, String xTitle, String yTitle) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Gráfica de Barras");
-            frame.setSize(600, 400);
-
-            JPanel panel = new JPanel(new BorderLayout());
-
-            BarGraph grafica = new BarGraph(heights, labels, title, xTitle, yTitle);
-            panel.add(grafica);
-
-            frame.add(panel);
-            frame.setVisible(true);
-        });
+    public void barGraph() {
+        barGraph.define(envG, tableSym);
     }
 
     public void pieChart() {
-        try {
-            pieChart(
-                envG.getArrDataSym("valores"),
-                envG.getArrDataSym("ejex"),
-                envG.getDataSym("titulo").dataS
-            );
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void pieChart(ArrayList<DataSym> data, ArrayList<DataSym> titles, String title) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Gráfico de Pie Personalizado");
-            frame.setSize(600, 400);
-
-            PieChart grafico = new PieChart(data, titles, title);
-            frame.add(grafico);
-
-            frame.setVisible(true);
-        });
+        pieGraph.define(envG, tableSym);
     }
 :}
 
@@ -128,18 +90,18 @@ non terminal String[] ARGSFOR;
 non terminal Instruction LOOPWHILE, LOOPDOWHILE;
 non terminal Instruction PRINT;
 non terminal Instruction REASIGN;
-non terminal Instruction ENVEST;
 non terminal Expression EXP, ARITHMETICS, RELATIONALS, LOGICS;
 non terminal String EXPF, EXPFOR;
 non terminal String TYPE;
 // Stat
-non terminal DataSym EXPEST, SYMBSTAT;
-non terminal String INSTRUCTIONSEST;
-non terminal String INSTRUCTIONEST;
+non terminal Value EXPEST;
+non terminal SymbStat SYMBSTAT;
+non terminal ArrayList<Init> ENVEST, INSTRUCTIONSEST;
+non terminal Init INSTRUCTIONEST;
 non terminal String TYPEEST;
-non terminal String DECLIDEST;
-non terminal ArrayList<DataSym> VALUES;
-non terminal String ARRAYSDEF;
+non terminal Init DECLIDEST;
+non terminal ArrayList<Value> VALUES;
+non terminal InitAxis ARRAYSDEF;
 
 /* 5. Precedencias */
 precedence left TK_colon;
@@ -166,12 +128,12 @@ INSTRUCTION ::=
     DECLID       :ins TK_semicolon {:RESULT = ins;:} |
     REASIGN      :ins TK_semicolon {:RESULT = ins;:} |
     IFSTRUCT     :ins              {:RESULT = ins;:} |
-    SWITCHSTRUCT :ins              {:RESULT = ins;:}|
+    SWITCHSTRUCT :ins              {:RESULT = ins;:} |
     LOOPFOR      :ins              {:RESULT = ins;:} |
     LOOPWHILE    :ins              {:RESULT = ins;:} |
     LOOPDOWHILE  :ins              {:RESULT = ins;:} |
     PRINT        :ins              {:RESULT = ins;:} |
-    RW_break          TK_semicolon |
+    RW_break          TK_semicolon {:RESULT = new Break();:} |
     DECFUNC      :ins              {:RESULT = new Empty();:} |
     error                          ;
 
@@ -298,36 +260,31 @@ LOGICS ::=
 
 // StatPy
 INSTRUCTIONSEST ::=
-    INSTRUCTIONSEST INSTRUCTIONEST |
-    INSTRUCTIONEST                 ;
+    INSTRUCTIONSEST :insts INSTRUCTIONEST :ins {:RESULT = insts; RESULT.add(ins);:} |
+    INSTRUCTIONEST :ins                        {:RESULT = new ArrayList<>(Arrays.asList(ins));:} ;
 
 INSTRUCTIONEST ::=
-    DECLIDEST       TK_semicolon |
-    REASIGN         TK_semicolon |
-    ARRAYSDEF                    ;
+    DECLIDEST :ins      TK_semicolon {:RESULT = ins;:} |
+    ARRAYSDEF :ins                   {:RESULT = ins;:} ;
 
 // Declaración de funciones
 DECFUNC ::=
-    RW_void RW_defG TK_lpar TK_rpar ENVEST |
-    RW_void RW_barG TK_lpar TK_rpar ENVEST {:isThereGraphBar = true;:} |
-    RW_void RW_pieG TK_lpar TK_rpar ENVEST {:isThereGraphPie = true;:} ;
+    RW_void RW_defG TK_lpar TK_rpar ENVEST :ins {:globalsDef = new FuncDefG(ins);:} |
+    RW_void RW_barG TK_lpar TK_rpar ENVEST :ins {:barGraph = new FuncDefBar(ins); isThereGraphBar = true;:} |
+    RW_void RW_pieG TK_lpar TK_rpar ENVEST :ins {:pieGraph = new FuncDefPie(ins); isThereGraphPie = true;:} ;
 
 // Declaracion de variables
 DECLIDEST ::=
-    RW_string RW_title :id TK_equal EXPEST :dts  {:envG.saveDataSym(id.toLowerCase(), dts);:}|
-    RW_string RW_titleX :id TK_equal EXPEST :dts {:envG.saveDataSym(id.toLowerCase(), dts);:}|
-    RW_string RW_titleY :id TK_equal EXPEST :dts {:envG.saveDataSym(id.toLowerCase(), dts);:}|
-    TYPEEST TK_id :id TK_equal EXPEST :dts       {:envG.saveDataSym(id.toLowerCase(), dts);:}|
-    TYPEEST TK_id :id                            {:envG.saveDataSym(id.toLowerCase(), null);:};
-
-// Simbolos en Archivo StatPy
-SYMBSTAT ::=
-    TK_dollar TK_lbrc RW_newVal TK_comma TK_string :fn TK_comma TK_string :att TK_rbrc {:RESULT = tableSym.getValue(fn.substring(1, fn.length() - 1), att.toLowerCase().substring(1, att.length() - 1));:} ;
+    RW_string RW_title :id TK_equal EXPEST :dts  {:RESULT = new InitLabel(id.toLowerCase(), dts);:}|
+    RW_string RW_titleX :id TK_equal EXPEST :dts {:RESULT = new InitLabel(id.toLowerCase(), dts);:}|
+    RW_string RW_titleY :id TK_equal EXPEST :dts {:RESULT = new InitLabel(id.toLowerCase(), dts);:}|
+    TYPEEST TK_id :id TK_equal EXPEST :dts       {:RESULT = new InitLabel(id.toLowerCase(), dts);:}|
+    TYPEEST TK_id :id                            {:RESULT = new InitLabel(id.toLowerCase(), null);:};
 
 // Arreglos
 ARRAYSDEF ::=
-    RW_string TK_lbrk TK_rbrk RW_xAxis :id TK_equal TK_lbrc VALUES :values TK_rbrc TK_semicolon  {:envG.saveArrDataSym(id.toLowerCase(), values);:} |
-    RW_double TK_lbrk TK_rbrk RW_values :id TK_equal TK_lbrc VALUES :values TK_rbrc TK_semicolon {:envG.saveArrDataSym(id.toLowerCase(), values);:} ;
+    RW_string TK_lbrk TK_rbrk RW_xAxis :id TK_equal TK_lbrc VALUES :values TK_rbrc TK_semicolon  {:RESULT = new InitAxis(id.toLowerCase(), values);:} |
+    RW_double TK_lbrk TK_rbrk RW_values :id TK_equal TK_lbrc VALUES :values TK_rbrc TK_semicolon {:RESULT = new InitAxis(id.toLowerCase(), values);:} ;
 
 VALUES ::=
     VALUES :list TK_comma EXPEST :exp {:RESULT = list; RESULT.add(exp);:} |
@@ -335,8 +292,8 @@ VALUES ::=
 
 // Entorno estadístico
 ENVEST ::=
-    TK_lbrc INSTRUCTIONSEST TK_rbrc |
-    TK_lbrc TK_rbrc                 ;
+    TK_lbrc INSTRUCTIONSEST :insts TK_rbrc {:RESULT = insts;:} |
+    TK_lbrc TK_rbrc                        {:RESULT = new ArrayList<>();:} ;
 
 // Tipos estadisticos
 TYPEEST ::=
@@ -345,8 +302,12 @@ TYPEEST ::=
 
 // Expresiones
 EXPEST ::=
-    SYMBSTAT  :sym           {:RESULT = sym;:} |
-    TK_id     :id            {:RESULT = envG.getDataSym(id.toLowerCase());:} |
-    TK_string :str           {:RESULT = new DataSym(true, str.substring(1, str.length() - 1));:} |
-    TK_double :dbl           {:RESULT = new DataSym(false, Double.parseDouble(dbl));:} |
+    SYMBSTAT  :sym              {:RESULT = sym;:} |
+    TK_id     :id               {:RESULT = new ValueID(id.toLowerCase());:} |
+    TK_string :str              {:RESULT = new Basic(new DataSym(true, str.substring(1, str.length() - 1)));:} |
+    TK_double :dbl              {:RESULT = new Basic(new DataSym(false, Double.parseDouble(dbl)));:} |
     TK_lpar EXPEST :exp TK_rpar {:RESULT = exp;:} ;
+
+// Simbolos en Archivo StatPy
+SYMBSTAT ::=
+    TK_dollar TK_lbrc RW_newVal TK_comma TK_string :fn TK_comma TK_string :att TK_rbrc {:RESULT = new SymbStat(fn.substring(1, fn.length() - 1), att.toLowerCase().substring(1, att.length() - 1));:} ;

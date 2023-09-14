@@ -16,6 +16,9 @@ public class ErrorL {
             "Unrecognized Character: " + character
         );
     }
+    public String getHTML() {
+        return "\n\t\t\t<tr>\n\t\t\t\t<td class=\"center-text\">" + character + "</td>\n\t\t\t\t<td class=\"center-text\"> Error Léxico</td>\n\t\t\t\t<td class=\"center-text\">" + line + "</td>\n\t\t\t\t<td class=\"center-text\">" + column + "</td>\n\t\t\t</tr>\n";
+    }
     public String toString() {
         return line + " ".repeat(6 - String.valueOf(line).length()) + column + " ".repeat(8 - String.valueOf(column).length()) + "Unrecognized Character: " + character;
     }

@@ -245,7 +245,6 @@ INSTRUCTIONSEST ::=
 
 INSTRUCTIONEST ::=
     DECLIDEST       TK_semicolon |
-    REASIGN         TK_semicolon |
     ARRAYSDEF                    ;
 
 // Declaración de funciones
@@ -259,9 +258,9 @@ COLORIDFUNC ::=
 
 // Declaracion de variables
 DECLIDEST ::=
-    COLORESTID TK_equal EXPEST |
-    TYPEEST COLORDECLID TK_equal EXPEST       |
-    TYPEEST COLORDECLID                       ;
+    COLORESTID TK_equal EXPEST          |
+    TYPEEST COLORDECLID TK_equal EXPEST |
+    TYPEEST COLORDECLID                 ;
 
 COLORESTID ::=
     COLORSTREST RW_title  :id {:painter.VARIABLE(idleft, idright);:} |
@@ -286,13 +285,8 @@ COLORDBLEST ::=
     RW_double :tp {:painter.RW1(tpleft, tpright);:} ;
 
 VALUES ::=
-    VALUES TK_comma VALUE |
-    VALUE                 ;
-
-VALUE ::=
-    SYMBSTAT      |
-    TK_string :tr {:painter.STRING(trleft, trright);     :} |
-    TK_id     :tr {:painter.USEVARIABLE(trleft, trright);:} ;
+    VALUES TK_comma EXPEST |
+    EXPEST                 ;
 
 // Simbolos en Archivo StatPy
 SYMBSTAT ::=
