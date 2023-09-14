@@ -1,0 +1,3597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StatPy</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="./js/Headers.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="center-text">
+            Tokens Project.sp
+        </h1>
+    </div>
+    <div class="containerTable">
+        <div class="container container-table">
+            <table id="compoundsInfo">
+                <tr>
+                    <th id="noBooks" class="center-text">
+                        Lexema
+                    </th>
+                    <th id="noBooks" class="center-text">
+                        Token
+                    </th>
+                    <th id="noBooks" class="center-text">
+                        Línea
+                    </th>
+                    <th id="noBooks" class="center-text">
+                        Columna
+                    </th>
+                </tr><tr>
+				<td class="center-text">void</td>
+
+				<td class="center-text">RW_void</td>
+
+				<td class="center-text">5</td>
+
+				<td class="center-text">2</td>
+</tr>
+<tr>
+				<td class="center-text">main</td>
+
+				<td class="center-text">RW_main</td>
+
+				<td class="center-text">5</td>
+
+				<td class="center-text">7</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">5</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">5</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">5</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">int</td>
+
+				<td class="center-text">RW_int</td>
+
+				<td class="center-text">6</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">varIABle</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">6</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">6</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">8</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">6</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">6</td>
+
+				<td class="center-text">22</td>
+</tr>
+<tr>
+				<td class="center-text">Console.Write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">7</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">7</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">VARiable</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">7</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">+</td>
+
+				<td class="center-text">TK_plus</td>
+
+				<td class="center-text">7</td>
+
+				<td class="center-text">29</td>
+</tr>
+<tr>
+				<td class="center-text">3</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">7</td>
+
+				<td class="center-text">31</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">7</td>
+
+				<td class="center-text">32</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">7</td>
+
+				<td class="center-text">33</td>
+</tr>
+<tr>
+				<td class="center-text">variaBLe</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">8</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">8</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">15</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">8</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">8</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">9</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">var</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">9</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">9</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">2.5</td>
+
+				<td class="center-text">TK_double</td>
+
+				<td class="center-text">9</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">9</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">Console.Write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">10</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">10</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">VARiable</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">10</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">*</td>
+
+				<td class="center-text">TK_mult</td>
+
+				<td class="center-text">10</td>
+
+				<td class="center-text">29</td>
+</tr>
+<tr>
+				<td class="center-text">3</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">10</td>
+
+				<td class="center-text">31</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">10</td>
+
+				<td class="center-text">32</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">10</td>
+
+				<td class="center-text">33</td>
+</tr>
+<tr>
+				<td class="center-text">for</td>
+
+				<td class="center-text">RW_for</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">9</td>
+</tr>
+<tr>
+				<td class="center-text">int</td>
+
+				<td class="center-text">RW_int</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">1</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text"><=</td>
+
+				<td class="center-text">TK_lessequ</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">23</td>
+</tr>
+<tr>
+				<td class="center-text">varIABle</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">26</td>
+</tr>
+<tr>
+				<td class="center-text">-</td>
+
+				<td class="center-text">TK_minus</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">35</td>
+</tr>
+<tr>
+				<td class="center-text">3</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">37</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">38</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">40</td>
+</tr>
+<tr>
+				<td class="center-text">++</td>
+
+				<td class="center-text">TK_inc</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">42</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">44</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">11</td>
+
+				<td class="center-text">46</td>
+</tr>
+<tr>
+				<td class="center-text">if</td>
+
+				<td class="center-text">RW_if</td>
+
+				<td class="center-text">12</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">12</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">12</td>
+
+				<td class="center-text">13</td>
+</tr>
+<tr>
+				<td class="center-text">==</td>
+
+				<td class="center-text">TK_equequ</td>
+
+				<td class="center-text">12</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">2</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">12</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">12</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">12</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">Console.Write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">13</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">13</td>
+
+				<td class="center-text">27</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">13</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">13</td>
+
+				<td class="center-text">29</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">13</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">else</td>
+
+				<td class="center-text">RW_else</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">if</td>
+
+				<td class="center-text">RW_if</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">==</td>
+
+				<td class="center-text">TK_equequ</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">22</td>
+</tr>
+<tr>
+				<td class="center-text">3</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">25</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">26</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">14</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">Console.write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">15</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">15</td>
+
+				<td class="center-text">27</td>
+</tr>
+<tr>
+				<td class="center-text">"Hola"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">15</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">15</td>
+
+				<td class="center-text">34</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">15</td>
+
+				<td class="center-text">35</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">else</td>
+
+				<td class="center-text">RW_else</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">if</td>
+
+				<td class="center-text">RW_if</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">==</td>
+
+				<td class="center-text">TK_equequ</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">22</td>
+</tr>
+<tr>
+				<td class="center-text">4</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">25</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">26</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">16</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">Console.write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">17</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">17</td>
+
+				<td class="center-text">27</td>
+</tr>
+<tr>
+				<td class="center-text">"Hola"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">17</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">+</td>
+
+				<td class="center-text">TK_plus</td>
+
+				<td class="center-text">17</td>
+
+				<td class="center-text">35</td>
+</tr>
+<tr>
+				<td class="center-text">" mUNDO"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">17</td>
+
+				<td class="center-text">37</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">17</td>
+
+				<td class="center-text">45</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">17</td>
+
+				<td class="center-text">46</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">18</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">ELSE</td>
+
+				<td class="center-text">RW_else</td>
+
+				<td class="center-text">18</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">18</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">Console.WRITE</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">19</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">19</td>
+
+				<td class="center-text">27</td>
+</tr>
+<tr>
+				<td class="center-text">"NINGUNA"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">19</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">19</td>
+
+				<td class="center-text">37</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">19</td>
+
+				<td class="center-text">38</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">20</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">Console.Write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">21</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">21</td>
+
+				<td class="center-text">23</td>
+</tr>
+<tr>
+				<td class="center-text">i</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">21</td>
+
+				<td class="center-text">24</td>
+</tr>
+<tr>
+				<td class="center-text">*</td>
+
+				<td class="center-text">TK_mult</td>
+
+				<td class="center-text">21</td>
+
+				<td class="center-text">26</td>
+</tr>
+<tr>
+				<td class="center-text">2</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">21</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">21</td>
+
+				<td class="center-text">29</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">21</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">23</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">int</td>
+
+				<td class="center-text">RW_int</td>
+
+				<td class="center-text">25</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">25</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">25</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">1</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">25</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">25</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">while</td>
+
+				<td class="center-text">RW_while</td>
+
+				<td class="center-text">26</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">26</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">26</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text"><</td>
+
+				<td class="center-text">TK_less</td>
+
+				<td class="center-text">26</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">10</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">26</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">26</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">26</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">Console.write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">27</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">27</td>
+
+				<td class="center-text">23</td>
+</tr>
+<tr>
+				<td class="center-text">"Toro"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">27</td>
+
+				<td class="center-text">24</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">27</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">27</td>
+
+				<td class="center-text">31</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">28</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">28</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">28</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">+</td>
+
+				<td class="center-text">TK_plus</td>
+
+				<td class="center-text">28</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">1</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">28</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">28</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">29</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">31</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">31</td>
+
+				<td class="center-text">5</td>
+</tr>
+<tr>
+				<td class="center-text">0</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">31</td>
+
+				<td class="center-text">7</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">31</td>
+
+				<td class="center-text">8</td>
+</tr>
+<tr>
+				<td class="center-text">do</td>
+
+				<td class="center-text">RW_do</td>
+
+				<td class="center-text">32</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">32</td>
+
+				<td class="center-text">9</td>
+</tr>
+<tr>
+				<td class="center-text">console.write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">33</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">33</td>
+
+				<td class="center-text">23</td>
+</tr>
+<tr>
+				<td class="center-text">"Hola mundo"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">33</td>
+
+				<td class="center-text">24</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">33</td>
+
+				<td class="center-text">36</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">33</td>
+
+				<td class="center-text">37</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">34</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">34</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">34</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">+</td>
+
+				<td class="center-text">TK_plus</td>
+
+				<td class="center-text">34</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">1</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">34</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">34</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">while</td>
+
+				<td class="center-text">RW_while</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">8</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">a</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text"><</td>
+
+				<td class="center-text">TK_less</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">5</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">35</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">switch</td>
+
+				<td class="center-text">RW_switch</td>
+
+				<td class="center-text">37</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">37</td>
+
+				<td class="center-text">9</td>
+</tr>
+<tr>
+				<td class="center-text">valor</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">37</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">37</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">37</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">case</td>
+
+				<td class="center-text">RW_case</td>
+
+				<td class="center-text">38</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">1</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">38</td>
+
+				<td class="center-text">9</td>
+</tr>
+<tr>
+				<td class="center-text">:</td>
+
+				<td class="center-text">TK_colon</td>
+
+				<td class="center-text">38</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">precio</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">39</td>
+
+				<td class="center-text">5</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">39</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">55</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">39</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">39</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">break</td>
+
+				<td class="center-text">RW_break</td>
+
+				<td class="center-text">40</td>
+
+				<td class="center-text">5</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">40</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">case</td>
+
+				<td class="center-text">RW_case</td>
+
+				<td class="center-text">41</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">2</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">41</td>
+
+				<td class="center-text">9</td>
+</tr>
+<tr>
+				<td class="center-text">:</td>
+
+				<td class="center-text">TK_colon</td>
+
+				<td class="center-text">41</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">precio</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">42</td>
+
+				<td class="center-text">5</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">42</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">25</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">42</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">42</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">break</td>
+
+				<td class="center-text">RW_break</td>
+
+				<td class="center-text">43</td>
+
+				<td class="center-text">5</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">43</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">case</td>
+
+				<td class="center-text">RW_case</td>
+
+				<td class="center-text">44</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">3</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">44</td>
+
+				<td class="center-text">9</td>
+</tr>
+<tr>
+				<td class="center-text">:</td>
+
+				<td class="center-text">TK_colon</td>
+
+				<td class="center-text">44</td>
+
+				<td class="center-text">10</td>
+</tr>
+<tr>
+				<td class="center-text">precio</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">45</td>
+
+				<td class="center-text">5</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">45</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">40</td>
+
+				<td class="center-text">TK_int</td>
+
+				<td class="center-text">45</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">45</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">default</td>
+
+				<td class="center-text">RW_default</td>
+
+				<td class="center-text">46</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">:</td>
+
+				<td class="center-text">TK_colon</td>
+
+				<td class="center-text">46</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">Console.write</td>
+
+				<td class="center-text">RW_print</td>
+
+				<td class="center-text">47</td>
+
+				<td class="center-text">5</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">47</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">"No válido. Escoja 1, 2 o 3"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">47</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">47</td>
+
+				<td class="center-text">47</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">47</td>
+
+				<td class="center-text">48</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">48</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">void</td>
+
+				<td class="center-text">RW_void</td>
+
+				<td class="center-text">50</td>
+
+				<td class="center-text">6</td>
+</tr>
+<tr>
+				<td class="center-text">DefinirGlobales</td>
+
+				<td class="center-text">RW_defG</td>
+
+				<td class="center-text">50</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">50</td>
+
+				<td class="center-text">26</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">50</td>
+
+				<td class="center-text">27</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">50</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">51</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">reporte1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">51</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">51</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">"Reporte 1"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">51</td>
+
+				<td class="center-text">22</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">51</td>
+
+				<td class="center-text">33</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">52</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">pe1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">52</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">52</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">0.8</td>
+
+				<td class="center-text">TK_double</td>
+
+				<td class="center-text">52</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">52</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">53</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">pe2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">53</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">53</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">0.5</td>
+
+				<td class="center-text">TK_double</td>
+
+				<td class="center-text">53</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">53</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">54</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">pe3</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">54</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">54</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">0.2</td>
+
+				<td class="center-text">TK_double</td>
+
+				<td class="center-text">54</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">54</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">po1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">$</td>
+
+				<td class="center-text">TK_dollar</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">NewValor</td>
+
+				<td class="center-text">RW_newVal</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">"Project.json"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">44</td>
+</tr>
+<tr>
+				<td class="center-text">"variable1"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">46</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">57</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">55</td>
+
+				<td class="center-text">58</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">po2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">15</td>
+</tr>
+<tr>
+				<td class="center-text">$</td>
+
+				<td class="center-text">TK_dollar</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">NewValor</td>
+
+				<td class="center-text">RW_newVal</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">"Project.json"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">44</td>
+</tr>
+<tr>
+				<td class="center-text">"variable2"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">46</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">57</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">56</td>
+
+				<td class="center-text">58</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">57</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">vart</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">57</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">57</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">"Val 1"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">57</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">57</td>
+
+				<td class="center-text">25</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">58</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">var2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">58</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">58</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">"Val 2"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">58</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">58</td>
+
+				<td class="center-text">25</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">59</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">var22</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">59</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">59</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">"Val 3"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">59</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">59</td>
+
+				<td class="center-text">26</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">60</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">var3</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">60</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">60</td>
+
+				<td class="center-text">16</td>
+</tr>
+<tr>
+				<td class="center-text">"Val 4"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">60</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">60</td>
+
+				<td class="center-text">25</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">61</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">var33</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">61</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">61</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">"Val 5"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">61</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">61</td>
+
+				<td class="center-text">26</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">62</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">void</td>
+
+				<td class="center-text">RW_void</td>
+
+				<td class="center-text">64</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">GraficaPie</td>
+
+				<td class="center-text">RW_pieG</td>
+
+				<td class="center-text">64</td>
+
+				<td class="center-text">8</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">64</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">64</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">64</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">65</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">Titulo</td>
+
+				<td class="center-text">RW_title</td>
+
+				<td class="center-text">65</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">65</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">reporte1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">65</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">65</td>
+
+				<td class="center-text">27</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">[</td>
+
+				<td class="center-text">TK_lbrk</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">]</td>
+
+				<td class="center-text">TK_rbrk</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">Ejex</td>
+
+				<td class="center-text">RW_xAxis</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">"Prob 1"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">29</td>
+</tr>
+<tr>
+				<td class="center-text">"Prob 2"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">31</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">39</td>
+</tr>
+<tr>
+				<td class="center-text">var2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">41</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">45</td>
+</tr>
+<tr>
+				<td class="center-text">var22</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">47</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">52</td>
+</tr>
+<tr>
+				<td class="center-text">var3</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">54</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">58</td>
+</tr>
+<tr>
+				<td class="center-text">var33</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">60</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">65</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">66</td>
+
+				<td class="center-text">66</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">[</td>
+
+				<td class="center-text">TK_lbrk</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">]</td>
+
+				<td class="center-text">TK_rbrk</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">Valores</td>
+
+				<td class="center-text">RW_values</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">23</td>
+</tr>
+<tr>
+				<td class="center-text">pe1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">25</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">po1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">33</td>
+</tr>
+<tr>
+				<td class="center-text">pe2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">35</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">38</td>
+</tr>
+<tr>
+				<td class="center-text">po2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">40</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">43</td>
+</tr>
+<tr>
+				<td class="center-text">pe3</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">45</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">48</td>
+</tr>
+<tr>
+				<td class="center-text">$</td>
+
+				<td class="center-text">TK_dollar</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">50</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">51</td>
+</tr>
+<tr>
+				<td class="center-text">NewValor</td>
+
+				<td class="center-text">RW_newVal</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">53</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">61</td>
+</tr>
+<tr>
+				<td class="center-text">"Project.json"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">63</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">77</td>
+</tr>
+<tr>
+				<td class="center-text">"variable1"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">79</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">90</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">92</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">67</td>
+
+				<td class="center-text">93</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">68</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">void</td>
+
+				<td class="center-text">RW_void</td>
+
+				<td class="center-text">70</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">GraficaBarras</td>
+
+				<td class="center-text">RW_barG</td>
+
+				<td class="center-text">70</td>
+
+				<td class="center-text">8</td>
+</tr>
+<tr>
+				<td class="center-text">(</td>
+
+				<td class="center-text">TK_lpar</td>
+
+				<td class="center-text">70</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">)</td>
+
+				<td class="center-text">TK_rpar</td>
+
+				<td class="center-text">70</td>
+
+				<td class="center-text">22</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">70</td>
+
+				<td class="center-text">23</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">71</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">Titulo</td>
+
+				<td class="center-text">RW_title</td>
+
+				<td class="center-text">71</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">71</td>
+
+				<td class="center-text">17</td>
+</tr>
+<tr>
+				<td class="center-text">reporte1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">71</td>
+
+				<td class="center-text">19</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">71</td>
+
+				<td class="center-text">27</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">[</td>
+
+				<td class="center-text">TK_lbrk</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">]</td>
+
+				<td class="center-text">TK_rbrk</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">EjeX</td>
+
+				<td class="center-text">RW_xAxis</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">"Bar 1"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">"Bar 2"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">37</td>
+</tr>
+<tr>
+				<td class="center-text">var2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">39</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">43</td>
+</tr>
+<tr>
+				<td class="center-text">var22</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">45</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">50</td>
+</tr>
+<tr>
+				<td class="center-text">var3</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">52</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">56</td>
+</tr>
+<tr>
+				<td class="center-text">var33</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">58</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">63</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">72</td>
+
+				<td class="center-text">64</td>
+</tr>
+<tr>
+				<td class="center-text">double</td>
+
+				<td class="center-text">RW_double</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">[</td>
+
+				<td class="center-text">TK_lbrk</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">]</td>
+
+				<td class="center-text">TK_rbrk</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">12</td>
+</tr>
+<tr>
+				<td class="center-text">Valores</td>
+
+				<td class="center-text">RW_values</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">14</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">21</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">23</td>
+</tr>
+<tr>
+				<td class="center-text">pe1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">25</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">28</td>
+</tr>
+<tr>
+				<td class="center-text">po1</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">33</td>
+</tr>
+<tr>
+				<td class="center-text">pe2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">35</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">38</td>
+</tr>
+<tr>
+				<td class="center-text">po2</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">40</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">43</td>
+</tr>
+<tr>
+				<td class="center-text">pe3</td>
+
+				<td class="center-text">TK_id</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">45</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">48</td>
+</tr>
+<tr>
+				<td class="center-text">$</td>
+
+				<td class="center-text">TK_dollar</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">50</td>
+</tr>
+<tr>
+				<td class="center-text">{</td>
+
+				<td class="center-text">TK_lbrc</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">51</td>
+</tr>
+<tr>
+				<td class="center-text">NewValor</td>
+
+				<td class="center-text">RW_newVal</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">53</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">61</td>
+</tr>
+<tr>
+				<td class="center-text">"Project.json"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">63</td>
+</tr>
+<tr>
+				<td class="center-text">,</td>
+
+				<td class="center-text">TK_comma</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">77</td>
+</tr>
+<tr>
+				<td class="center-text">"variable2"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">79</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">90</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">92</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">73</td>
+
+				<td class="center-text">93</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">74</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">TituloX</td>
+
+				<td class="center-text">RW_titleX</td>
+
+				<td class="center-text">74</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">74</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">"Atributo"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">74</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">74</td>
+
+				<td class="center-text">30</td>
+</tr>
+<tr>
+				<td class="center-text">string</td>
+
+				<td class="center-text">RW_string</td>
+
+				<td class="center-text">75</td>
+
+				<td class="center-text">4</td>
+</tr>
+<tr>
+				<td class="center-text">TituloY</td>
+
+				<td class="center-text">RW_titleY</td>
+
+				<td class="center-text">75</td>
+
+				<td class="center-text">11</td>
+</tr>
+<tr>
+				<td class="center-text">=</td>
+
+				<td class="center-text">TK_equal</td>
+
+				<td class="center-text">75</td>
+
+				<td class="center-text">18</td>
+</tr>
+<tr>
+				<td class="center-text">"Puntaje"</td>
+
+				<td class="center-text">TK_string</td>
+
+				<td class="center-text">75</td>
+
+				<td class="center-text">20</td>
+</tr>
+<tr>
+				<td class="center-text">;</td>
+
+				<td class="center-text">TK_semicolon</td>
+
+				<td class="center-text">75</td>
+
+				<td class="center-text">29</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">76</td>
+
+				<td class="center-text">3</td>
+</tr>
+<tr>
+				<td class="center-text">}</td>
+
+				<td class="center-text">TK_rbrc</td>
+
+				<td class="center-text">77</td>
+
+				<td class="center-text">2</td>
+</tr>
+<tr>
+				<td class="center-text">null</td>
+
+				<td class="center-text">EOF</td>
+
+				<td class="center-text">-1</td>
+
+				<td class="center-text">-1</td>
+</tr>
+		</table>
+        </div>
+    </div>
+</body>
+</html>
