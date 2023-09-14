@@ -4,8 +4,6 @@
 
     --primary: #161B22;
     --secondary: #161B22;
-    --gray: #8899A6;
-    --blue: #1EA1F1;
     --white: #fff;
 }
 html{
@@ -35,6 +33,18 @@ input::-webkit-inner-spin-button{
 input[type=number] {
     -moz-appearance: textfield;
 }
+/*Scroll*/
+/* Estilo del scroll principal */
+body::-webkit-scrollbar {
+    width: 10px;
+    background-color: #2C3139;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #505968;
+    border-radius: 2px;
+}
+
 /*global*/
 .container{
     width: 100%;
