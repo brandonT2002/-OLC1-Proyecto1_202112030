@@ -17,8 +17,10 @@ import javax.swing.JTextPane;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.text.StyledEditorKit;
 import javax.swing.text.TabSet;
 import javax.swing.text.TabStop;
+import javax.swing.text.ViewFactory;
 
 import java_cup.runtime.Symbol;
 import java.awt.event.KeyListener;
@@ -105,6 +107,13 @@ public class IDE extends JPanel implements ActionListener, KeyListener, MouseLis
         outConsole.setText("StatPy:\n");
         outConsole.setFont(new java.awt.Font("Consolas", 0, 13));
         outConsole.setBounds(0, 0, 770, 808);
+
+        outConsole.setEditorKit(
+            new StyledEditorKit() {
+                public ViewFactory getViewFactory() {
+                    return new NoWrapViewFactory();
+                }
+            });
 
         TabStop[] tabStops = new TabStop[50];
         int tabWidth = 4 * outConsole.getFontMetrics(outConsole.getFont()).charWidth(' ');

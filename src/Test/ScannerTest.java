@@ -24,15 +24,17 @@ public class ScannerTest {
             );
             // System.out.println(input);
             Symbol token = null;
-            do {
-                    token = scanner.next_token();
-                    // reporte += token.value + " ".repeat(35 - String.valueOf(token.value).length()) + token.left + " ".repeat(6 - String.valueOf(token.left).length()) + token.right + " ".repeat(8 - String.valueOf(token.right).length()) + Language.TOK.terminalNames[token.sym];
-            } while(token.value != null);
             System.out.println("TOKEN" + " ".repeat(35 - "TOKEN".length()) + "LINE" + " ".repeat(6 - "LINE".length()) + "COLUMN" + " ".repeat(8 - "COLUMN".length()) + "TYPE");
-            saveReportTok(ReporteTokens(scanner, token));
-            openReportTok("Reports/reporte_tokens.html");
-            saveReportErrors(ReporteErrores(scanner.getErrors()));
-            openReportErrors("Reports/reporte_errores.html");
+            do {
+                token = scanner.next_token();
+                System.out.println(token.value + " ".repeat(35 - String.valueOf(token.value).length()) + token.left + " ".repeat(6 - String.valueOf(token.left).length()) + token.right + " ".repeat(8 - String.valueOf(token.right).length()) + Language.TOK.terminalNames[token.sym]);
+            } while(token.value != null);
+            // Reporte, errores léxicos
+            // System.out.println(ReporteTokens(scanner, token));
+            // saveReportTok(ReporteTokens(scanner, token));
+            // openReportTok("Reports/reporte_tokens.html");
+            // saveReportErrors(ReporteErrores(scanner.getErrors()));
+            // openReportErrors("Reports/reporte_errores.html");
         }
         catch(Exception e) {
             System.out.println(e);
