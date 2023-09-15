@@ -1,0 +1,56 @@
+/* 1. Package e importaciones */
+package Painter;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java_cup.runtime.*;
+import Components.Response;
+import Components.ErrorS;
+
+/* 2. Código para el parser, variables y métodos */
+parser code
+{:
+    public ScannerJsonF s;
+    int index;
+    int nIB = 0;
+    WordPainter painter;
+    public ParserJsonF(ScannerJsonF s,WordPainter painter) {
+        super(s);
+        this.s = s;
+        this.painter = painter;
+    }
+    public void syntax_error(Symbol sym) {
+        painter.SERROR(sym.left,sym.right);
+    }
+    public void unrecovered_syntax_error(Symbol sym) throws java.lang.Exception {}
+:}
+
+/* 3. Terminales */
+terminal String TK_string, TK_double, TK_lbrc, TK_rbrc, TK_comma, TK_colon;
+
+/* 4. No Terminales */
+non terminal String INIT;
+non terminal String PARAMS, PARAM;
+non terminal String KEYS, COLORLBRC, COLORRBRC;
+
+/* 5. Precedencias */
+
+start with INIT;
+
+INIT ::= COLORLBRC PARAMS COLORRBRC ;
+
+PARAMS ::= 
+    PARAMS TK_comma PARAM |
+    PARAM                 ;
+
+PARAM ::=
+    KEYS TK_colon TK_string :tr {:painter.STRING(trleft, trright);:} |
+    KEYS TK_colon TK_double :tr {:painter.NUMBER(trleft, trright);:} ;
+
+KEYS ::=
+    TK_string :ky {:painter.VARIABLE(kyleft, kyright);:} ;
+
+COLORLBRC ::=
+    TK_lbrc :l {:painter.BRKT(nIB, lleft, lright); nIB ++;:} ;
+
+COLORRBRC ::=
+    TK_rbrc :r {:nIB --; painter.BRKT(nIB, rleft, rright);:} ;
