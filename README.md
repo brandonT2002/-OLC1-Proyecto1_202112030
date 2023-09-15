@@ -128,10 +128,6 @@ Brandon Andy Jefferson Tejaxún Pichiyá - 202112030
     |Comentarios Simple|Caracter //|"//"([^\r\n]*)?|// comentario simple||
     |Comentarios Multilineas|Caracter /**/|[/][*][^*]*[*]+([^/*][^*]*[*]+)*[/]|// comentario simple||
 
-<br>
-<br>
-<br>
-
 2. **Análisis Sintáctico**
 
     [Gramática StatPy](GrammarStatPy.md)
